@@ -1,0 +1,1441 @@
+---
+title: "European Car Engines"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    theme: lumen
+    css: "sidebar.css"
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+source("Git_0000_src_cd_librariesPCA.R")
+source("Git_0010_src_cd_PCA_CarNrg.R")
+source("Git_0011_src_cd_CarNrg_TS.R")
+source("Git_0012_src_cd_CarNrg_Map.R")
+
+```
+
+
+Registration Maps {data-orientation=rows}
+===============================================================================
+
+```{r reactives_reg_maps}
+
+### Preparing map data
+react_car_Maps <- reactive({
+
+  if (input$car_Variable == "Cluster ID"){
+    
+    data_Maps <- PCA_CAR_NRG_imp_glong %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, ClusterID)  } else {
+      
+       if (input$car_Variable == "GDP per Capita") {
+         
+         data_Maps <- PCA_CAR_NRG_imp_glong %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, GDP_cap) } else {
+      
+    data_Maps <- PCA_CAR_NRG_imp_glong %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, Energy, Registration) %>% 
+      filter(Energy == input$car_Variable)
+      
+    }
+      
+      
+    }
+
+    data_Maps
+    
+    
+  })
+
+
+### Plotting Map data
+
+react_car_leaf <- reactive({
+  
+  data_leaf = react_car_Maps()
+  
+  if (input$car_Variable == "Cluster ID"){
+
+    
+     factpal <- colorFactor(palette = "Dark2", 
+                       data_leaf$ClusterID,
+                       n = 5)
+      
+
+     leaf_Maps = leaflet(data = data_leaf, 
+          #                %>% 
+          # filter(Year == input$car_Year),
+        options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(stroke = FALSE,
+    # color = "grey", 
+    #           opacity = .5,
+    #           stroke = TRUE, 
+              smoothFactor = 0.2, 
+              fillOpacity = .7,
+              color = ~factpal(data_leaf$ClusterID),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "Cluster ID: ", 
+                              ClusterID),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = factpal,
+            title = "Cluster ID",
+            values = ~ClusterID,
+            opacity = 1.0) 
+     
+  } else {
+    
+    if (input$car_Variable == "GDP per Capita"){
+    
+    qpal1 <- colorQuantile("Greens",
+                      domain = data_leaf$GDP_cap,
+                      n = 5)
+
+     leaf_Maps = leaflet(data = data_leaf, 
+        options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(
+    # color = "green", 
+    #           opacity = .5,
+    #           stroke = TRUE,
+              weight = 1,
+              fillOpacity = .7,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Greens",  GDP_cap)(GDP_cap),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "GDP per Capita: ", 
+                              prettyNum(round(GDP_cap,0), big.mark = ".")),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = qpal1,
+            title = "Quantiles",
+            values = ~GDP_cap,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))
+
+    
+    
+    } else {
+    
+qpal2 <- colorQuantile("Reds",
+                      domain = data_leaf$Registration,
+                      n = 5)
+
+     leaf_Maps = leaflet(data = data_leaf, 
+          #                %>% 
+          # filter(Year == input$car_Year),
+        options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(
+    # color = "red", 
+    #           opacity = .5,
+    #           stroke = TRUE,
+              weight = 1,
+              fillOpacity = .7,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Reds",  Registration)(Registration),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "Registrations (promilles): ", 
+                              prettyNum(round(Registration,1), accuracy = 1)),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = qpal2,
+            title = "Quantiles",
+            values = ~Registration,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))      
+      
+      
+  }}
+
+    leaf_Maps
+
+  })
+
+
+# Related data for DT - Tab 1
+react_car_MapDT_Clust <- reactive({
+    
+    data_MapDT_Clust <- PCA_CAR_NRG_imp_glong %>% 
+      st_drop_geometry() %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, Country_Name, ClusterID)  %>% 
+      distinct() %>% 
+      arrange(ClusterID, Country) 
+    
+    data_MapDT_Clust
+
+})
+
+
+# Related data for DT - Tab 2
+react_car_MapDT_GDP <- reactive({
+
+    data_MapDT_GDP <- PCA_CAR_NRG_imp_glong %>% 
+      st_drop_geometry() %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, GDP_cap) %>% 
+      distinct() %>% 
+      arrange(-GDP_cap) 
+    
+    data_MapDT_GDP
+
+})
+
+# Related data for DT - Tab 3
+react_car_MapDT_Nrg <- reactive({
+
+    data_MapDT_Nrg <- PCA_CAR_NRG_imp_glong %>% 
+      st_drop_geometry() %>% 
+      filter(Year == input$car_Year) %>% 
+    select(Country, Energy, Registration) %>% 
+      filter(Energy == input$car_Variable) %>% arrange(-Registration)
+    
+    data_MapDT_Nrg
+
+})
+
+```
+
+
+
+Row {data-height=100}
+-----------------------------------------------------------------------
+
+```{r inputs_reg_map}
+
+selectInput("car_Year",
+            "Select a year:",
+            choices = c(2013, 2017))
+
+selectInput("car_Variable",
+            "Select an indicator:",
+            choices = c("Cluster ID", 
+                        "GDP per Capita", 
+                        levels(PCA_CAR_NRG_imp_glong$Energy)))
+
+```
+
+
+Row {.sidebar data-width=600}
+-----------------------------------------------------------------------
+
+
+```{r reg_map}
+
+renderLeaflet({
+  
+  react_car_leaf()
+  
+}) 
+
+hr()
+
+h5(strong("About European Thematic Maps ...")) #,
+                                   p(h5("These maps aim at synthesizing the main findings from the previous multivariate analysis:"))
+
+                                   p(h5("1. The", strong("3 map types"), "group European countries into quantiles based on their per capita GDP or engine-type-registration numbers.")) #,
+                                   p(h5("2. The associated", strong("3 tables"),"on the right lay out detailed informations about the visualisations with the latest energy-type-registration amounts.")) #))
+
+```
+
+
+Row {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Cluster IDs
+
+```{r reg_cluster_DT}
+DT::renderDataTable({
+
+datatable(react_car_MapDT_Clust(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center', targets = 1:3)), 
+                         language = list(sSearch = "Filter:")))  
+
+})
+```
+
+
+### GDP Per Capita
+
+```{r reg_GDP_DT}
+
+DT::renderDataTable({
+
+datatable(react_car_MapDT_GDP(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center', targets = 1:2)), 
+                         language = list(sSearch = "Filter:")))  %>% 
+formatRound("GDP_cap", digits = 0)
+  
+})
+```
+
+
+### Top Car Energy Forms
+
+```{r reg_energy_DT}
+
+DT::renderDataTable({
+
+datatable(react_car_MapDT_Nrg(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center')), # , targets = 1:5
+                         language = list(sSearch = "Filter:")))  %>% 
+formatRound("Registration", digits = 1)
+  
+})
+```
+
+
+
+Growth Maps {data-orientation=columns}
+===============================================================================
+
+
+```{r input_gr_map}
+
+selectInput("car_gr_Variable",
+            "Select an indicator:",
+            choices = c("Cluster ID", 
+                        "GDP per Capita", 
+                        levels(PCA_carnrg_1517_gr_imp_glong$Energy)))
+
+
+```
+
+
+
+```{r react_gr_map}
+
+react_hcpc_gr <- reactive({
+
+    data_hcpc <- res.hcpc
+
+    data_hcpc
+    
+  })
+
+
+### Plotting Map data - From WIDE DATA!
+
+react_car_leaf_gr <- reactive({
+  
+  data_leaf_gr = PCA_carnrg_1517_gr_imp_glong 
+  
+  if (input$car_gr_Variable == "Cluster ID"){
+
+    
+     factpal <- colorFactor(palette = "Dark2", 
+                       unique(data_leaf_gr$ClusterID),
+                       n = 4)
+      
+
+     leaf_gr_Maps = leaflet(data = data_leaf_gr, 
+                            options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(stroke = FALSE,
+    # color = "grey", 
+    #           opacity = .5,
+    #           stroke = TRUE, 
+              smoothFactor = 0.2, 
+              fillOpacity = .7,
+              color = ~factpal(data_leaf_gr$ClusterID),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "Cluster ID: ", 
+                              ClusterID),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = factpal,
+            title = "Cluster ID",
+            values = ~ClusterID,
+            opacity = 1.0) 
+     
+  } else {
+    
+    if (input$car_gr_Variable == "GDP per Capita"){
+    
+    qpal1 <- colorQuantile("Greens",
+                      domain = unique(data_leaf_gr$GDP_cap), 
+                      n = 5)
+
+     leaf_gr_Maps = leaflet(data = data_leaf_gr, 
+                            options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(
+    # color = "green", 
+    #           opacity = .5,
+    #           stroke = TRUE,
+              weight = 1,
+              fillOpacity = .7,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Greens",  GDP_cap)(GDP_cap),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "GDP per Capita: ", 
+                              prettyNum(round(GDP_cap,0), big.mark = ".")),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = qpal1,
+            title = "Quantiles",
+            values = ~GDP_cap,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))
+
+    
+    
+    } else {
+    
+qpal2 <- colorQuantile("Reds",
+                      domain = data_leaf_gr %>% 
+                        filter(Energy == input$car_gr_Variable) %>% 
+                        pull(GrowthRates),
+                      n = 5)
+
+     leaf_gr_Maps = leaflet(data_leaf_gr %>% 
+                              filter(Energy == input$car_gr_Variable), 
+                            options = leafletOptions(minZoom = 2, maxZoom = 5)) %>% 
+  setView(lng = 15, lat = 55, zoom = 3) %>% 
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+  addPolygons(
+    # color = "red", 
+    #           opacity = .5,
+    #           stroke = TRUE,
+              weight = 1,
+              fillOpacity = .7,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Reds",  GrowthRates)(GrowthRates),
+              label = ~paste0("Country: ", 
+                              Country , 
+                              " - ",
+                              "Growth Rates (%): ", 
+                              prettyNum(round(GrowthRates,1), accuracy = 1)),
+              highlight = highlightOptions(weight = 2,
+                                           color = "white",
+                                           bringToFront = TRUE)) %>% 
+  addLegend(pal = qpal2,
+            title = "Quantiles",
+            values = ~GrowthRates,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))      
+      
+      
+  }}
+
+    leaf_gr_Maps
+
+  })
+
+
+
+### DT cluster - Wide DATA
+
+react_car_gr_MapDT_Clust <- reactive({
+
+    data_gr_MapDT_Clust <- PCA_carnrg_1517_gr_gimp %>% 
+      st_drop_geometry() %>% 
+    select(Country, Country_Name, ClusterID)  %>% 
+      arrange(ClusterID, Country) 
+    
+    data_gr_MapDT_Clust
+
+})
+
+### DT_GDP
+react_car_gr_MapDT_GDP <- reactive({
+
+    data_gr_MapDT_GDP <- PCA_carnrg_1517_gr_gimp %>% 
+      st_drop_geometry() %>% 
+    select(Country, GDP_cap = gdp_cap) %>% 
+      arrange(-GDP_cap) 
+    
+    data_gr_MapDT_GDP
+
+})
+
+### Col_gr_Variables
+react_car_gr_MapDT_Nrg <- reactive({
+
+    data_gr_MapDT_Nrg <- PCA_carnrg_1517_gr_imp_glong %>% 
+      filter(Energy == input$car_gr_Variable) %>% 
+    select(Country, Energy, GrowthRates) %>% # 
+      arrange(-GrowthRates)
+    
+    data_gr_MapDT_Nrg
+
+})
+  
+
+
+```
+
+
+
+Column {data-width=600, .tabset}
+-----------------------------------------------------------------------
+
+
+### Europe Map
+
+
+```{r gr_geo_map}
+
+renderLeaflet({
+  
+  react_car_leaf_gr()
+  
+}) 
+
+hr()
+
+h5(strong("About Cluster Analysis ...")) #,
+                                   p(h5("These plots aim at clustering countries into groups showing overall similar characteristics in terms of car-engine types:"))
+
+                                   p(h5("1. The", strong("5 clusters"), "were obtained using dimensionality reduction (PCA) and hierarchical clustering techniques.")) #,
+                                   p(h5("2. The first", strong("4 dimensions"),"represents about 90 pct. of the variability in the dataset.")) #))
+                       
+```
+
+
+
+### Cluster Map
+
+```{r gr_cluster_map}
+
+renderPlot({
+
+fviz_cluster(react_hcpc_gr(),
+             axes = 1:2,
+             repel = T,
+             ggtheme = theme_bw() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000")))
+
+  })
+
+hr()
+
+h5(strong("About Cluster Analysis ...")) #,
+                                   p(h5("These plots aim at clustering countries into groups showing overall similar characteristics in terms of car-engine types:"))
+
+                                   p(h5("1. The", strong("5 clusters"), "were obtained using dimensionality reduction (PCA) and hierarchical clustering techniques.")) #,
+                                   p(h5("2. The first", strong("4 dimensions"),"represents about 90 pct. of the variability in the dataset.")) #))
+                       
+```
+
+
+
+Column {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Cluster IDs
+
+
+```{r gr_clust_DT}
+
+### DT cluster
+
+DT::renderDataTable({
+
+datatable(react_car_gr_MapDT_Clust(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center', targets = 1:3)), 
+                         language = list(sSearch = "Filter:")))  
+
+})
+
+
+```
+
+
+
+### GDP Per Capita
+
+```{r gr_GDP_DT}
+
+### DT_GDP
+
+DT::renderDataTable({
+
+datatable(react_car_gr_MapDT_GDP(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center', targets = 1:2)),
+                         language = list(sSearch = "Filter:")))  %>% 
+formatRound("GDP_cap", digits = 0)
+  
+})
+
+
+
+```
+
+
+
+### Top Energy-Form Growth Rates
+
+
+
+```{r gr_energy_DT}
+
+renderPlotly({
+
+gg_gr_Nrg = react_car_gr_MapDT_Nrg() %>% 
+
+  ggplot(aes(fct_reorder(Country, GrowthRates), GrowthRates)) +
+  geom_col(fill = "#d7301f") +
+  scale_x_discrete("") +
+  scale_y_continuous("Growth Rates (percent)") +
+  coord_flip() + 
+  theme_minimal()
+
+ggplotly(gg_gr_Nrg, tooltip = c("Country"))
+
+})
+
+```
+
+
+
+
+
+Cluster Analysis (2013)
+===============================================================================
+
+Row {data-height=100}
+-----------------------------------------------------------------------
+
+```{r react_cluster_13, include=FALSE}
+
+react_hcpc_13 <- reactive({
+
+    data_hcpc_13 <- res13.hcpc
+
+    data_hcpc_13
+    
+  })
+
+
+react_axes_fviz_13 = reactive({
+
+  axes = c()
+  
+    if(input$car_13_dims == "Dimensions 1 and 2"){
+      
+     axes = 1:2 } else {
+     axes = 3:4
+      
+      
+    }
+
+    axes
+    
+  })
+
+
+### Dim 13 - Cadre 1 -Tab 1
+react_top_13_dim13_c1 = reactive({
+  
+  if(input$car_13_dims == "Dimensions 1 and 2"){
+   
+gg_13_dim13_c1 = data_res13.pca %>% 
+  select(Country, ALT) %>% 
+  arrange(desc(ALT)) %>% 
+  rename(Alternative = ALT) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Alternative), Alternative)) +
+  geom_col(fill = "#99000d") +
+  scale_x_discrete("") +
+  scale_y_continuous("Alternative Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()   
+    
+ } else {
+   
+   gg_13_dim13_c1 = data_res13.pca %>% 
+  select(Country, DIE) %>% 
+  arrange(desc(DIE)) %>% 
+  rename(Diesel = DIE) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Diesel), Diesel)) +
+  geom_col(fill = "#cb181d") +
+  scale_x_discrete("") +
+  scale_y_continuous("Diesel Registrations (per thousand)") +
+  coord_flip() + theme_minimal()
+  
+    
+
+
+  }
+    
+gg_13_dim13_c1   
+    
+
+
+})
+
+
+### Dim 13 - Cadre 2 - Tab 1
+react_top_13_dim13_c2 = reactive({
+  
+  if(input$car_13_dims == "Dimensions 1 and 2"){
+    
+    
+gg_13_dim13_c2 = data_res13.pca %>% 
+  select(Country, ELC) %>%
+  arrange(desc(ELC)) %>%
+  rename(Electric = ELC) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Electric), Electric)) +
+  geom_col(fill = "#fdd49e") +
+  scale_x_discrete("") +
+  scale_y_continuous("Electrical Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()  } else {
+  
+    
+gg_13_dim13_c2 = data_res13.pca %>% 
+  select(Country, DIE_X_HYB) %>% 
+  arrange(desc(DIE_X_HYB)) %>% 
+  rename(Diesel_NoHybrid = DIE_X_HYB) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Diesel_NoHybrid), Diesel_NoHybrid)) +
+  geom_col(fill = "#fdbb84") +
+  scale_x_discrete("") +
+  scale_y_continuous("Diesel excl. Hybrid Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_13_dim13_c2   
+    
+
+
+})
+
+
+### Dim 24 - Cadre 1 - Tab 2
+react_top_13_dim24_c1 = reactive({
+  
+  if(input$car_13_dims == "Dimensions 1 and 2"){
+    
+    
+gg_13_dim24_c1  = data_res13.pca %>% 
+  select(Country, PET_X_HYB) %>%
+  arrange(desc(PET_X_HYB)) %>%
+  rename(Petrolium_NoHybrid = PET_X_HYB) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Petrolium_NoHybrid), Petrolium_NoHybrid)) +
+  geom_col(fill = "#fc8d59") +
+  scale_x_discrete("") +
+  scale_y_continuous("Petrolium excl. Hybrid Registrations (per thousand)") +
+  coord_flip()  + theme_minimal() } else {
+  
+    
+gg_13_dim24_c1 = data_res13.pca %>% 
+  select(Country, OTH) %>% 
+  arrange(desc(OTH)) %>% 
+  rename(Other = OTH) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Other), Other)) +
+  geom_col(fill = "#ef6548") +
+  scale_x_discrete("") +
+  scale_y_continuous("Other Engine Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_13_dim24_c1   
+    
+
+
+})
+
+
+### Dim 24 - Cadre 2 - Tab 2
+react_top_13_dim24_c2 = reactive({
+  
+  if(input$car_13_dims == "Dimensions 1 and 2"){
+    
+    
+gg_13_dim24_c2  = data_res13.pca %>% 
+  select(Country, PET) %>%
+  arrange(desc(PET)) %>%
+  rename(Petrolium = PET) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Petrolium), Petrolium)) +
+  geom_col(fill = "#d7301f") +
+  scale_x_discrete("") +
+  scale_y_continuous("Petrolium Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()  } else {
+  
+    
+gg_13_dim24_c2 = data_res13.pca %>% 
+  select(Country, GAS) %>% 
+  arrange(GAS) %>% 
+  rename(Gas = GAS) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Gas), Gas)) +
+  geom_col(fill = "#990000") +
+  scale_x_discrete("") +
+  scale_y_continuous("Gas Engine Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_13_dim24_c2   
+    
+
+
+})
+
+
+
+```
+
+
+
+```{r input_clust_13}
+
+selectInput("car_13_dims",
+            "Select the dimensions of the cluster:",
+            choices = c("Dimensions 1 and 2", "Dimensions 3 and 4"))
+
+```
+
+
+
+Row {.sidebar data-width=600}
+-----------------------------------------------------------------------
+
+
+```{r clust_13_map}
+
+renderPlot({
+
+fviz_cluster(react_hcpc_13(), 
+             axes = react_axes_fviz_13(), 
+             repel = T, 
+             ggtheme = theme_bw() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000")))
+  
+  })
+
+hr()
+
+h5(strong("About Cluster Analysis ...")) #,
+                                   p(h5("These plots aim at clustering countries into groups showing overall similar characteristics in terms of car-engine types:"))
+
+                                   p(h5("1. The", strong("5 clusters"), "were obtained using dimensionality reduction (PCA) and hierarchical clustering techniques.")) #,
+                                   p(h5("2. The first", strong("4 dimensions"),"represents about 90 pct. of the variability in the dataset.")) #))
+                       
+```
+
+
+
+Row {data-width=400 data-height=500 .tabset}
+-----------------------------------------------------------------------
+
+### Top `r reactive(ifelse(input$car_13_dims == "Dimensions 1 and 2", "Alternative Engine", "Diesel Engine"))` Registrations
+
+
+
+```{r clust_13_col_dim13_11}
+
+### Cadre 1 - Tab 1
+renderPlotly({
+  
+ggplotly(react_top_13_dim13_c1(), tooltip = c("Country"))
+  
+})
+
+
+```
+
+
+
+### Top `r reactive(ifelse(input$car_13_dims == "Dimensions 1 and 2", "Electrical Engine", "Diesel excl. Hybrids"))` Registrations
+
+```{r clust_13_col_dim13_12}
+
+### Cadre 1 - Tab 2
+
+renderPlotly({
+  
+ggplotly(react_top_13_dim13_c2(), tooltip = c("Country"))
+  
+})
+
+```
+
+
+Row {data-width=400 data-height=500 .tabset}
+-----------------------------------------------------------------------
+
+### Top `r reactive(ifelse(input$car_13_dims == "Dimensions 1 and 2", "Petrolium excl. Hybrids", "Other Engine"))` Registrations
+
+
+
+```{r clust_13_col_dim24_21}
+
+### Cadre 2 - Tab 1
+
+renderPlotly({
+  
+ggplotly(react_top_13_dim24_c1(), tooltip = c("Country"))
+  
+})
+
+
+```
+
+
+
+### Top `r reactive(ifelse(input$car_13_dims == "Dimensions 1 and 2", "Petrolium Engine", "Gas Engine"))` Registrations
+
+```{r clust_13_col_dim24_22}
+
+### Cadre 2 - Tab 2
+
+renderPlotly({
+  
+ggplotly(react_top_13_dim24_c2(), tooltip = c("Country"))
+  
+})
+
+```
+
+
+
+
+Cluster Analysis (2017)
+===============================================================================
+
+Row {data-height=100}
+-----------------------------------------------------------------------
+
+```{r react_clust_17, include=FALSE}
+
+# res17.hcpc
+
+react_hcpc_17 <- reactive({
+
+    data_hcpc_17 <- res17.hcpc
+
+    data_hcpc_17
+  })
+
+
+react_axes_fviz_17 = reactive({
+
+  axes = c()
+  
+    if(input$car_17_dims == "Dimensions 1 and 2"){
+      
+     axes = 1:2 } else {
+     axes = 3:4
+      
+      
+    }
+
+    axes
+    
+  })
+
+
+### Dim 13 - Cadre 1 - Tab 1 - PCA relevant variables
+react_top_17_dim13_c1 = reactive({
+  
+  if(input$car_17_dims == "Dimensions 1 and 2"){
+    
+    
+gg_17_dim13_c1 = data_res17.pca %>% 
+  select(Country, DIE) %>% 
+  arrange(desc(DIE)) %>% 
+  rename(Diesel = DIE) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Diesel), Diesel)) +
+  geom_col(fill = "#225ea8") +
+  scale_x_discrete("") +
+  scale_y_continuous("Diesel Registrations (per thousand)") +
+  coord_flip() +
+  theme_minimal() } else {
+  
+    
+gg_17_dim13_c1 = data_res17.pca %>% 
+  select(Country, OTH) %>% 
+  arrange(desc(OTH)) %>% 
+  rename(Other = OTH) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Other), Other)) +
+  geom_col(fill = "#0c2c84") +
+  scale_x_discrete("") +
+  scale_y_continuous("Other Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal() 
+
+  }
+    
+gg_17_dim13_c1   
+    
+
+
+})
+
+
+
+
+### Dim 13 - Cadre 2 - Tab 1 - PCA relevant variables
+react_top_17_dim13_c2 = reactive({
+  
+  if(input$car_17_dims == "Dimensions 1 and 2"){
+    
+    
+gg_17_dim13_c2 = data_res17.pca %>% 
+  select(Country, ELC) %>%
+  arrange(desc(ELC)) %>%
+  rename(Electric = ELC) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Electric), Electric)) +
+  geom_col(fill = "#c6dbef") +
+  scale_x_discrete("") +
+  scale_y_continuous("Electrical Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()  } else {
+  
+    
+gg_17_dim13_c2 = data_res17.pca %>% 
+  select(Country, PET_X_HYB) %>% 
+  arrange(desc(PET_X_HYB)) %>% 
+  rename(Petrolium_NoHybrid = PET_X_HYB) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Petrolium_NoHybrid), Petrolium_NoHybrid)) +
+  geom_col(fill = "#9ecae1") +
+  scale_x_discrete("") +
+  scale_y_continuous("Petrolium excl. Hybrid Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_17_dim13_c2   
+    
+
+
+})
+
+
+
+### Dim 24 - Cadre 1 - Tab 2 - PCA relevant variables
+react_top_17_dim24_c1 = reactive({
+  
+  if(input$car_17_dims == "Dimensions 1 and 2"){
+    
+    
+gg_17_dim24_c1  = data_res17.pca %>% 
+  select(Country, PET) %>%
+  arrange(desc(PET)) %>%
+  rename(Petrolium = PET) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Petrolium), Petrolium)) +
+  geom_col(fill = "#6baed6") +
+  scale_x_discrete("") +
+  scale_y_continuous("Petrolium Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()  } else {
+  
+    
+gg_17_dim24_c1 = data_res17.pca %>% 
+  select(Country, GAS) %>% 
+  arrange(desc(GAS)) %>% 
+  rename(Gas = GAS) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Gas), Gas)) +
+  geom_col(fill = "#4292c6") +
+  scale_x_discrete("") +
+  scale_y_continuous("Gas Engine Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_17_dim24_c1   
+    
+
+
+})
+
+
+### Dim 24 - Cadre 2 - Tab 2 - PCA relevant variables
+react_top_17_dim24_c2 = reactive({
+  
+  if(input$car_17_dims == "Dimensions 1 and 2"){
+    
+    
+gg_17_dim24_c2  = data_res17.pca %>% 
+  select(Country, ALT) %>%
+  arrange(desc(ALT)) %>%
+  rename(Alternative = ALT) %>%
+  top_n(5) %>%
+  ggplot(aes(fct_reorder(Country, Alternative), Alternative)) +
+  geom_col(fill = "#2171b5") +
+  scale_x_discrete("") +
+  scale_y_continuous("Alternative Engine Registrations (per thousand)") +
+  coord_flip() + theme_minimal()  } else {
+  
+    
+gg_17_dim24_c2 = data_res17.pca %>% 
+  select(Country, GAS) %>% 
+  arrange(GAS) %>% 
+  rename(Gas = GAS) %>% 
+  top_n(5) %>% 
+  ggplot(aes(fct_reorder(Country, Gas), Gas)) +
+  geom_col(fill = "#084594") +
+  scale_x_discrete("") +
+  scale_y_continuous("Gas Engine Registrations (per thousand)") +
+  coord_flip()  + theme_minimal()
+
+  }
+    
+gg_17_dim24_c2   
+    
+
+
+})
+
+
+
+  
+```
+
+
+
+
+```{r input_clust_17}
+selectInput("car_17_dims",
+            "Select the dimensions of the cluster:",
+            choices = c("Dimensions 1 and 2", "Dimensions 3 and 4"))
+
+```
+
+
+
+Row {.sidebar data-width=600}
+-----------------------------------------------------------------------
+
+
+```{r clust_17_map}
+
+renderPlot({
+ 
+fviz_cluster(react_hcpc_17(), 
+             axes = react_axes_fviz_17(), 
+             repel = T, 
+             ggtheme = theme_bw() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000"))) 
+  
+  })
+
+hr()
+
+h5(strong("About Cluster Analysis ...")) #,
+                                   p(h5("These plots aim at clustering countries into groups showing overall similar characteristics in terms of car-engine types:"))
+
+                                   p(h5("1. The", strong("5 clusters"), "were obtained using dimensionality reduction (PCA) and hierarchical clustering techniques.")) #,
+                                   p(h5("2. The first", strong("4 dimensions"),"represents about 89 pct. of the variability in the dataset.")) #))
+                       
+```
+
+
+
+
+Row {data-width=400 data-height=500 .tabset}
+-----------------------------------------------------------------------
+
+
+### Top `r reactive(ifelse(input$car_17_dims == "Dimensions 1 and 2", "Diesel Engine", "Other Engine"))` Registrations
+
+
+
+```{r clust_17_col_dim13_11}
+
+### Cadre 1 - Tab 1 
+renderPlotly({
+  
+ggplotly(react_top_17_dim13_c1(), tooltip = c("Country"))
+  
+})
+
+
+```
+
+
+
+### Top `r reactive(ifelse(input$car_17_dims == "Dimensions 1 and 2", "Electrical Engine", "Petrolium excl. Hybrids"))` Registrations
+
+```{r clust_17_col_dim13_12}
+### Cadre 1 - Tab 2
+renderPlotly({
+  
+ggplotly(react_top_17_dim13_c2(), tooltip = c("Country"))
+  
+})
+
+```
+
+
+Row {data-width=400 data-height=500 .tabset}
+-----------------------------------------------------------------------
+
+
+### Top `r reactive(ifelse(input$car_17_dims == "Dimensions 1 and 2", "Petrolium Engine", "Gas Engine"))` Registrations
+
+```{r clust_17_col_dim24_21}
+### Cadre 2 - Tab 1
+renderPlotly({
+  
+ggplotly(react_top_17_dim24_c1(), tooltip = c("Country"))
+  
+})
+
+```
+
+### Top `r reactive(ifelse(input$car_17_dims == "Dimensions 1 and 2", "Alternative Engine", "Gas Engine"))` Registrations
+
+```{r clust_17_col_dim24_22}
+### Cadre 2 - Tab 2
+renderPlotly({
+  
+ggplotly(react_top_17_dim24_c2(), tooltip = c("Country"))
+  
+})
+
+```
+
+
+
+Aggregated Time Series Data
+===============================================================================
+
+```{r reactive_TS, include = FALSE}
+
+### Time Series of Car Energy
+react_TS_energy = reactive({
+  
+  if(input$car_TS_energy == "Traditional Fuel"){
+    
+### Top traditional Energy engines
+gg__TS_energy = ggplot(carb_year_long %>% 
+                  filter(Registrations > 1000000), 
+                aes(Year, Registrations, fill = Energy)) + 
+           geom_area(alpha = 0.5) + 
+  scale_x_continuous("") +
+  scale_y_continuous("European Registrations",
+                     labels = scales::comma_format(big.mark = ".")) +
+  scale_fill_discrete("") +
+  ggtitle("Number of registrations of fuel-engine-driven cars") +
+  theme(legend.position = "top") +
+  theme_minimal() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000"))  } else { 
+             
+             if(input$car_TS_energy == "Electrically Driven") {
+
+### Top Electrical and Hybrid Energy Engines
+gg__TS_energy = ggplot(carb_year_long %>% 
+                  filter(Energy %in% c("Electrical",
+                                       "Hybrid electric-petrol",
+                                       "Plug-in hybrid petrol-electric",
+                                       "Hybrid diesel-electric",
+                                       "Plug-in hybrid diesel-electric")),
+                aes(Year, Registrations, fill = Energy)) + 
+           geom_area(alpha = .5) + 
+  scale_x_continuous("") +
+  scale_y_continuous("European Registrations",
+                     labels = scales::comma_format(big.mark = ".")) +
+  scale_fill_discrete("") +
+  ggtitle("Number of registrations of electrical-engine-driven cars") +
+  theme(legend.position = "top") +
+  theme_minimal() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000"))  } else {
+             
+
+### Top Alternative Energy Engines
+gg__TS_energy = ggplot(carb_year_long %>% 
+                  filter(Energy %in% c("Alternative",
+                                       "Gas",
+                                       "Liquefied petroleum gases",
+                                       "Other")),
+                aes(Year, Registrations, fill = Energy)) + 
+           geom_area(alpha = .5) +
+  scale_x_continuous("") +
+  scale_y_continuous("European Registrations",
+                     labels = scales::comma_format(big.mark = ".")) +
+  scale_fill_discrete("") +
+  ggtitle("Registrations of alternative-energy-driven cars") +
+  theme(legend.position = "top") +
+  theme_minimal() +
+  theme(text = element_text(family = "serif", size = 14),
+        title = element_text(color = "#990000"))
+
+             
+           }}
+ 
+  gg__TS_energy 
+  
+})
+
+
+
+### Time Series of Car Energy
+react_DT_energy = reactive({
+  
+  if(input$car_TS_energy == "Traditional Fuel"){
+    
+### Top traditional Energy engines
+data__DT_energy = carb_year_long %>% 
+                  filter(Energy %in% c("Diesel", 
+                                       "Petrolium",
+                                       "Petrol excl. hybrids", 
+                                       "Diesel excl. hybrids"))
+                         
+                         } else { 
+             
+             if(input$car_TS_energy == "Electrically Driven") {
+
+### Top Electrical and Hybrid Energy Engines
+data__DT_energy = carb_year_long %>% 
+                  filter(Energy %in% c("Electrical",
+                                       "Hybrid electric-petrol",
+                                       "Plug-in hybrid petrol-electric",
+                                       "Hybrid diesel-electric",
+                                       "Plug-in hybrid diesel-electric"))
+
+} else {
+             
+### Top Alternative Energy Engines
+data__DT_energy = carb_year_long %>% 
+                  filter(Energy %in% c("Alternative",
+                                       "Gas",
+                                       "Liquefied petroleum gases",
+                                       "Other"))
+           }}
+ 
+data__DT_energy 
+  
+})
+
+```
+
+
+
+Row {data-height=100}
+-----------------------------------------------------------------------
+
+```{r input_TS}
+selectInput("car_TS_energy",
+            "Select a car's energy form:",
+            choices = c("Traditional Fuel", "Electrically Driven", "Alternative"))
+```
+
+
+
+Row {.sidebar data-width=600}
+-----------------------------------------------------------------------
+
+
+```{r TS_plots}
+
+renderPlotly({
+  
+  ggplotly(react_TS_energy())
+  
+})  
+
+hr()
+
+h5(strong("About the Time Series Data ...")) #,
+                                   p(h5("These time series aim at showing the evolution of engine-type-registration numbers at the European aggregate level for 3 car-engine categories:"))
+
+                                   p(h5("1. The more", strong("traditional-fuel-driven-engines"), "based on petrolium and diesel.")) #,
+                                   p(h5("2. The trendier", strong("electric-driven-engines"),"(grouping pure electrical or petrolium/diesel-hybrid-based engines.")) #))
+                                   p(h5("3. ", strong("Alternative-energy-form-engines"), "listing gas and LPG fuels among others.")) #
+
+```
+
+
+
+Row {data-width=400}
+-----------------------------------------------------------------------
+
+### Aggregated Time Series Data
+
+```{r TS_DT}
+DT::renderDataTable({
+
+datatable(react_DT_energy() %>%  
+            arrange(-Year, -Registrations),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 2),
+                         pageLength=10,
+                         # columnDefs = list(list(className = 'dt-center')), # , targets = 1:5
+                         language = list(sSearch = "Filter:")))  %>% 
+formatRound("Registrations", 
+            mark = ".", 
+            digits = 0)
+})
+```
+
+

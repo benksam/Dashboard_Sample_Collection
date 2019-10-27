@@ -1,0 +1,458 @@
+"Place","Acronym","Country","Year","Variable","Indicator","Value"
+"Bruxelles / Brussel","BE001C1","BE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",6335177
+"Oostende","BE011C1","BE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1286214
+"Bruxelles / Brussel","BE001C1","BE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",38578
+"Oostende","BE011C1","BE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",6706
+"Bruxelles / Brussel","BE001C1","BE",2017,"Number of available beds per 1000 residents","CR2010I",32.2
+"Oostende","BE011C1","BE",2017,"Number of available beds per 1000 residents","CR2010I",94.2
+"Bruxelles / Brussel","BE001C1","BE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.3
+"Oostende","BE011C1","BE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",18.1
+"Varna","BG003C1","BG",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5027527
+"Varna","BG003C1","BG",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",59484
+"Varna","BG003C1","BG",2017,"Number of available beds per 1000 residents","CR2010I",177.5
+"Varna","BG003C1","BG",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",15
+"Hamburg","DE002C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",25
+"Frankfurt am Main","DE005C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",14
+"Stuttgart","DE007C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",16
+"Dresden","DE009C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20
+"Dortmund","DE010C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20
+"Tallinn","EE001C1","EE",2017,"Number of cinema seats (total capacity)","CR1003V",5167
+"Tallinn","EE001C1","EE",2017,"Number of theatres","CR1008V",16
+"Tallinn","EE001C1","EE",2017,"Number of public libraries (all distribution points)","CR1010V",20
+"Tallinn","EE001C1","EE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20
+"Tallinn","EE001C1","EE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",3099102
+"Tallinn","EE001C1","EE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",18234
+"Tallinn","EE001C1","EE",2017,"Number of available beds per 1000 residents","CR2010I",42.7
+"Tallinn","EE001C1","EE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",7.3
+"Madrid","ES001C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",21144254
+"Barcelona","ES002C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",20428815
+"Sevilla","ES004C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5931524
+"Palma de Mallorca","ES010C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",9106285
+"Gandia","ES046C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1658157
+"Benidorm","ES054C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",16603087
+"Fuengirola","ES060C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",3216365
+"Torremolinos","ES068C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5576645
+"Marbella","ES533C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4314312
+"Benalm<e1>dena","ES539C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4432167
+"Chiclana de la Frontera","ES540C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2202819
+"Eivissa","ES543C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1991478
+"Puerto de la Cruz","ES550C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5878859
+"Madrid","ES001C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",95537
+"Barcelona","ES002C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",84057
+"Sevilla","ES004C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",25946
+"Palma de Mallorca","ES010C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",47727
+"Gandia","ES046C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",15061
+"Benidorm","ES054C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",79339
+"Fuengirola","ES060C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",15341
+"Torremolinos","ES068C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",25646
+"Marbella","ES533C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",27605
+"Benalm<e1>dena","ES539C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",21801
+"Chiclana de la Frontera","ES540C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",14381
+"Eivissa","ES543C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",14114
+"Puerto de la Cruz","ES550C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",21442
+"Madrid","ES001C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",30
+"Barcelona","ES002C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",51.9
+"Sevilla","ES004C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",37.6
+"Palma de Mallorca","ES010C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",117.4
+"Gandia","ES046C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",203.2
+"Benidorm","ES054C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",1187.2
+"Fuengirola","ES060C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",204.7
+"Torremolinos","ES068C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",378.8
+"Marbella","ES533C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",195.5
+"Benalm<e1>dena","ES539C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",316.6
+"Chiclana de la Frontera","ES540C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",173
+"Eivissa","ES543C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",284
+"Puerto de la Cruz","ES550C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",713.9
+"Madrid","ES001C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",6.6
+"Barcelona","ES002C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",12.6
+"Sevilla","ES004C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",8.6
+"Palma de Mallorca","ES010C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",22.4
+"Gandia","ES046C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",22.4
+"Benidorm","ES054C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",248.4
+"Fuengirola","ES060C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",42.9
+"Torremolinos","ES068C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",82.4
+"Marbella","ES533C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",30.6
+"Benalm<e1>dena","ES539C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",64.4
+"Chiclana de la Frontera","ES540C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",26.5
+"Eivissa","ES543C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",40.1
+"Puerto de la Cruz","ES550C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",195.7
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of cinema seats (total capacity)","CR1003V",6349
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of theatres","CR1008V",12
+"Tampere / Tammerfors","FI002C1","FI",2017,"Number of theatres","CR1008V",15
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of public libraries (all distribution points)","CR1010V",46
+"Tampere / Tammerfors","FI002C1","FI",2017,"Number of public libraries (all distribution points)","CR1010V",15
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",16
+"Tampere / Tammerfors","FI002C1","FI",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",4
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4175012
+"Tampere / Tammerfors","FI002C1","FI",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1129392
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",21389
+"Tampere / Tammerfors","FI002C1","FI",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",6880
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Number of available beds per 1000 residents","CR2010I",33.7
+"Tampere / Tammerfors","FI002C1","FI",2017,"Number of available beds per 1000 residents","CR2010I",30.1
+"Helsinki / Helsingfors","FI001C2","FI",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",6.6
+"Tampere / Tammerfors","FI002C1","FI",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",4.9
+"Paris","FR001C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",194761
+"Lyon","FR003C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",24061
+"Toulouse","FR004C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",10404
+"Strasbourg","FR006C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",7900
+"Bordeaux","FR007C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",15894
+"Nantes","FR008C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",11636
+"Lille","FR009C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",17744
+"Montpellier","FR010C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",6471
+"Clermont-Ferrand","FR022C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",8288
+"Grenoble","FR026C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",9340
+"Saint Denis","FR028C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",672
+"Toulon","FR032C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",6545
+"Tours","FR035C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",7264
+"Avignon","FR039C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",6506
+"Fr<e9>jus","FR099C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",2257
+"Marseille","FR203C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",8969
+"Nice","FR205C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",13865
+"Rouen","FR215C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",11232
+"Paris","FR001C1","FR",2017,"Number of theatres","CR1008V",326
+"Lyon","FR003C2","FR",2017,"Number of theatres","CR1008V",33
+"Toulouse","FR004C2","FR",2017,"Number of theatres","CR1008V",13
+"Strasbourg","FR006C2","FR",2017,"Number of theatres","CR1008V",10
+"Bordeaux","FR007C1","FR",2017,"Number of theatres","CR1008V",15
+"Nantes","FR008C1","FR",2017,"Number of theatres","CR1008V",9
+"Lille","FR009C1","FR",2017,"Number of theatres","CR1008V",20
+"Montpellier","FR010C1","FR",2017,"Number of theatres","CR1008V",12
+"Clermont-Ferrand","FR022C2","FR",2017,"Number of theatres","CR1008V",5
+"Grenoble","FR026C2","FR",2017,"Number of theatres","CR1008V",11
+"Saint Denis","FR028C1","FR",2017,"Number of theatres","CR1008V",3
+"Toulon","FR032C2","FR",2017,"Number of theatres","CR1008V",6
+"Tours","FR035C2","FR",2017,"Number of theatres","CR1008V",5
+"Avignon","FR039C2","FR",2017,"Number of theatres","CR1008V",8
+"Fr<e9>jus","FR099C1","FR",2017,"Number of theatres","CR1008V",0
+"Marseille","FR203C1","FR",2017,"Number of theatres","CR1008V",19
+"Nice","FR205C2","FR",2017,"Number of theatres","CR1008V",5
+"Rouen","FR215C2","FR",2017,"Number of theatres","CR1008V",9
+"Paris","FR001C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",319
+"Lyon","FR003C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",38
+"Toulouse","FR004C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",26
+"Strasbourg","FR006C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",11
+"Bordeaux","FR007C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",17
+"Nantes","FR008C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",10
+"Lille","FR009C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",23
+"Montpellier","FR010C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",12
+"Clermont-Ferrand","FR022C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",7
+"Grenoble","FR026C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",15
+"Saint Denis","FR028C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",14
+"Toulon","FR032C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",14
+"Tours","FR035C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",13
+"Avignon","FR039C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",9
+"Fr<e9>jus","FR099C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",3
+"Marseille","FR203C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",31
+"Nice","FR205C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",23
+"Rouen","FR215C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",13
+"Paris","FR001C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",15932230
+"Lyon","FR003C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2683694
+"Toulouse","FR004C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2418660
+"Strasbourg","FR006C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1496183
+"Bordeaux","FR007C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2581733
+"Nantes","FR008C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1553388
+"Lille","FR009C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",684478
+"Montpellier","FR010C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",855348
+"Clermont-Ferrand","FR022C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",500514
+"Grenoble","FR026C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",635458
+"Toulon","FR032C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1078632
+"Tours","FR035C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",327903
+"Avignon","FR039C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",487390
+"Fr<e9>jus","FR099C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4875801
+"Marseille","FR203C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1546638
+"Nice","FR205C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4803917
+"Rouen","FR215C2","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",63750
+"Paris","FR001C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",310782
+"Lyon","FR003C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",30566
+"Toulouse","FR004C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",24102
+"Strasbourg","FR006C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",16226
+"Bordeaux","FR007C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",23394
+"Nantes","FR008C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",14056
+"Lille","FR009C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",15949
+"Montpellier","FR010C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",9004
+"Clermont-Ferrand","FR022C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",7982
+"Grenoble","FR026C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",7839
+"Saint Denis","FR028C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1336
+"Toulon","FR032C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",14803
+"Tours","FR035C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",7959
+"Avignon","FR039C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",10322
+"Fr<e9>jus","FR099C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",50803
+"Marseille","FR203C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",17670
+"Nice","FR205C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",65866
+"Rouen","FR215C2","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",5730
+"Zagreb","HR001C1","HR",2017,"Number of cinema seats (total capacity)","CR1003V",9185
+"Pula - Pola","HR006C1","HR",2017,"Number of cinema seats (total capacity)","CR1003V",209
+"Zadar","HR007C1","HR",2017,"Number of cinema seats (total capacity)","CR1003V",980
+"Zagreb","HR001C1","HR",2017,"Number of theatres","CR1008V",90
+"Pula - Pola","HR006C1","HR",2017,"Number of theatres","CR1008V",1
+"Zadar","HR007C1","HR",2017,"Number of theatres","CR1008V",2
+"Pula - Pola","HR006C1","HR",2017,"Number of public libraries (all distribution points)","CR1010V",5
+"Zadar","HR007C1","HR",2017,"Number of public libraries (all distribution points)","CR1010V",2
+"Zagreb","HR001C1","HR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",22
+"Pula - Pola","HR006C1","HR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",0
+"Zadar","HR007C1","HR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",2
+"Zagreb","HR001C1","HR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2263758
+"Pula - Pola","HR006C1","HR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1878244
+"Zadar","HR007C1","HR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1832729
+"Zagreb","HR001C1","HR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",26060
+"Pula - Pola","HR006C1","HR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",28762
+"Zadar","HR007C1","HR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",27869
+"Zagreb","HR001C1","HR",2017,"Number of available beds per 1000 residents","CR2010I",32.5
+"Pula - Pola","HR006C1","HR",2017,"Number of available beds per 1000 residents","CR2010I",509.9
+"Zadar","HR007C1","HR",2017,"Number of available beds per 1000 residents","CR2010I",370.8
+"Zagreb","HR001C1","HR",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",2.8
+"Pula - Pola","HR006C1","HR",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",33.3
+"Zadar","HR007C1","HR",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",24.4
+"Budapest","HU001C1","HU",2017,"Number of cinema seats (total capacity)","CR1003V",26641
+"Budapest","HU001C1","HU",2017,"Number of theatres","CR1008V",95
+"Budapest","HU001C1","HU",2017,"Number of public libraries (all distribution points)","CR1010V",278
+"Budapest","HU001C1","HU",2017,"Total nights spent in tourist accommodation establishments","CR2001V",10071847
+"Budapest","HU001C1","HU",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",52479
+"Budapest","HU001C1","HU",2017,"Number of available beds per 1000 residents","CR2010I",29.9
+"Budapest","HU001C1","HU",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.7
+"Roma","IT001C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",26944569
+"Milano","IT002C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",11852973
+"Firenze","IT007C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",10056157
+"Venezia","IT011C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",11685819
+"Pisa","IT041C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1616787
+"Massa","IT047C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",892819
+"Rimini","IT508C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",7376990
+"Grosseto","IT520C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1082521
+"Roma","IT001C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",214214
+"Milano","IT002C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",69008
+"Firenze","IT007C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",49130
+"Venezia","IT011C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",63217
+"Pisa","IT041C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",15451
+"Massa","IT047C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",26535
+"Rimini","IT508C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",75028
+"Grosseto","IT520C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",19300
+"Roma","IT001C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",74.5
+"Milano","IT002C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",51.1
+"Firenze","IT007C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",128.5
+"Venezia","IT011C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",241.4
+"Pisa","IT041C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",170.8
+"Massa","IT047C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",383.3
+"Rimini","IT508C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",503.9
+"Grosseto","IT520C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",235
+"Roma","IT001C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",9.4
+"Milano","IT002C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",8.8
+"Firenze","IT007C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",26.3
+"Venezia","IT011C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",44.6
+"Pisa","IT041C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",17.9
+"Massa","IT047C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",12.9
+"Rimini","IT508C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",49.5
+"Grosseto","IT520C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",13.2
+"Vilnius","LT001C1","LT",2017,"Number of cinema seats (total capacity)","CR1003V",5776
+"Vilnius","LT001C1","LT",2017,"Number of theatres","CR1008V",25
+"Vilnius","LT001C1","LT",2017,"Number of public libraries (all distribution points)","CR1010V",21
+"Vilnius","LT001C1","LT",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",5
+"Vilnius","LT001C1","LT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1989252
+"Vilnius","LT001C1","LT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",12883
+"Vilnius","LT001C1","LT",2017,"Number of available beds per 1000 residents","CR2010I",23.6
+"Vilnius","LT001C1","LT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",3.6
+"Valletta","MT001C1","MT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4398723
+"Valletta","MT001C1","MT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",18965
+"Valletta","MT001C1","MT",2017,"Number of available beds per 1000 residents","CR2010I",84.5
+"Valletta","MT001C1","MT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",19.6
+"Lisboa","PT001C1","PT",2017,"Number of cinema seats (total capacity)","CR1003V",13153
+"Porto","PT002C1","PT",2017,"Number of cinema seats (total capacity)","CR1003V",2063
+"Funchal","PT004C1","PT",2017,"Number of cinema seats (total capacity)","CR1003V",2647
+"Lisboa","PT001C1","PT",2017,"Number of theatres","CR1008V",44
+"Porto","PT002C1","PT",2017,"Number of theatres","CR1008V",18
+"Funchal","PT004C1","PT",2017,"Number of theatres","CR1008V",8
+"Lisboa","PT001C1","PT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",12553476
+"Porto","PT002C1","PT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",3782858
+"Funchal","PT004C1","PT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5456332
+"Lisboa","PT001C1","PT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",55598
+"Porto","PT002C1","PT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",18296
+"Funchal","PT004C1","PT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",22185
+"Lisboa","PT001C1","PT",2017,"Number of available beds per 1000 residents","CR2010I",110.1
+"Porto","PT002C1","PT",2017,"Number of available beds per 1000 residents","CR2010I",85.4
+"Funchal","PT004C1","PT",2017,"Number of available beds per 1000 residents","CR2010I",211.7
+"Lisboa","PT001C1","PT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",24.9
+"Porto","PT002C1","PT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",17.7
+"Funchal","PT004C1","PT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",52.1
+"Bucuresti","RO001C1","RO",2017,"Number of theatres","CR1008V",43
+"Cluj-Napoca","RO002C1","RO",2017,"Number of theatres","CR1008V",8
+"Timisoara","RO003C1","RO",2017,"Number of theatres","CR1008V",8
+"Craiova","RO004C1","RO",2017,"Number of theatres","CR1008V",5
+"Braila","RO005C1","RO",2017,"Number of theatres","CR1008V",5
+"Oradea","RO006C1","RO",2017,"Number of theatres","CR1008V",8
+"Bacau","RO007C1","RO",2017,"Number of theatres","CR1008V",4
+"Arad","RO008C1","RO",2017,"Number of theatres","CR1008V",3
+"Sibiu","RO009C1","RO",2017,"Number of theatres","CR1008V",7
+"T<e2>rgu Mures","RO010C1","RO",2017,"Number of theatres","CR1008V",10
+"Bistrita","RO022C1","RO",2017,"Number of theatres","CR1008V",12
+"Constanta","RO501C1","RO",2017,"Number of theatres","CR1008V",3
+"Iasi","RO502C1","RO",2017,"Number of theatres","CR1008V",4
+"Galati","RO503C1","RO",2017,"Number of theatres","CR1008V",6
+"Brasov","RO504C1","RO",2017,"Number of theatres","CR1008V",8
+"Ploiesti","RO505C1","RO",2017,"Number of theatres","CR1008V",5
+"Pitesti","RO506C1","RO",2017,"Number of theatres","CR1008V",7
+"Baia Mare","RO507C1","RO",2017,"Number of theatres","CR1008V",4
+"Suceava","RO512C1","RO",2017,"Number of theatres","CR1008V",3
+"Bucuresti","RO001C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",339
+"Cluj-Napoca","RO002C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",99
+"Timisoara","RO003C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",82
+"Craiova","RO004C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",85
+"Braila","RO005C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",58
+"Oradea","RO006C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",57
+"Bacau","RO007C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",59
+"Arad","RO008C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",45
+"Sibiu","RO009C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",50
+"T<e2>rgu Mures","RO010C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",43
+"Bistrita","RO022C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",32
+"Constanta","RO501C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",87
+"Iasi","RO502C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",100
+"Galati","RO503C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",66
+"Brasov","RO504C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",67
+"Ploiesti","RO505C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",60
+"Pitesti","RO506C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",57
+"Baia Mare","RO507C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",43
+"Suceava","RO512C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",42
+"Bucuresti","RO001C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",3360245
+"Cluj-Napoca","RO002C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",872015
+"Timisoara","RO003C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",682063
+"Craiova","RO004C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",184921
+"Braila","RO005C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",100179
+"Oradea","RO006C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",407225
+"Bacau","RO007C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",86680
+"Arad","RO008C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",240215
+"Sibiu","RO009C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",617895
+"T<e2>rgu Mures","RO010C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",305946
+"Bistrita","RO022C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",122951
+"Constanta","RO501C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1677868
+"Iasi","RO502C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",501435
+"Galati","RO503C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",140798
+"Brasov","RO504C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1194787
+"Ploiesti","RO505C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",117118
+"Pitesti","RO506C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",137146
+"Baia Mare","RO507C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",144585
+"Suceava","RO512C1","RO",2017,"Total nights spent in tourist accommodation establishments","CR2001V",151081
+"Bucuresti","RO001C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",20886
+"Cluj-Napoca","RO002C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",6216
+"Timisoara","RO003C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",5053
+"Craiova","RO004C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",2230
+"Braila","RO005C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1099
+"Oradea","RO006C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",2608
+"Bacau","RO007C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1042
+"Arad","RO008C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",3012
+"Sibiu","RO009C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",5580
+"T<e2>rgu Mures","RO010C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",2691
+"Bistrita","RO022C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1299
+"Constanta","RO501C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",22806
+"Iasi","RO502C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",3517
+"Galati","RO503C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1703
+"Brasov","RO504C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",10237
+"Ploiesti","RO505C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1512
+"Pitesti","RO506C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",2465
+"Baia Mare","RO507C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",2126
+"Suceava","RO512C1","RO",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",1328
+"Bucuresti","RO001C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",9.9
+"Cluj-Napoca","RO002C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",19.2
+"Timisoara","RO003C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",15.3
+"Craiova","RO004C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",7.4
+"Braila","RO005C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",5.4
+"Oradea","RO006C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",11.8
+"Bacau","RO007C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",5.3
+"Arad","RO008C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",17
+"Sibiu","RO009C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",33
+"T<e2>rgu Mures","RO010C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",18.1
+"Bistrita","RO022C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",13.8
+"Constanta","RO501C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",72.4
+"Iasi","RO502C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",9.4
+"Galati","RO503C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",5.6
+"Brasov","RO504C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",35.3
+"Ploiesti","RO505C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",6.6
+"Pitesti","RO506C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",14.1
+"Baia Mare","RO507C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",14.5
+"Suceava","RO512C1","RO",2017,"Number of available beds per 1000 residents","CR2010I",10.9
+"Bucuresti","RO001C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.6
+"Cluj-Napoca","RO002C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",2.7
+"Timisoara","RO003C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",2.1
+"Craiova","RO004C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.6
+"Braila","RO005C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.5
+"Oradea","RO006C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.8
+"Bacau","RO007C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.4
+"Arad","RO008C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.4
+"Sibiu","RO009C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",3.7
+"T<e2>rgu Mures","RO010C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",2.1
+"Bistrita","RO022C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.3
+"Constanta","RO501C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.3
+"Iasi","RO502C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.3
+"Galati","RO503C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.5
+"Brasov","RO504C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",4.1
+"Ploiesti","RO505C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.5
+"Pitesti","RO506C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",0.8
+"Baia Mare","RO507C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1
+"Suceava","RO512C1","RO",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",1.2
+"Stockholm","SE001C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",11883
+"G<f6>teborg","SE002C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",5168
+"Malm<f6>","SE003C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",2688
+"J<f6>nk<f6>ping","SE004C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",1025
+"Ume<e5>","SE005C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",1418
+"<d6>rebro","SE008C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",1299
+"Norrk<f6>ping","SE502C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",1068
+"Helsingborg","SE503C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",989
+"Lund","SE504C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",1478
+"Stockholm","SE001C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",9071194
+"G<f6>teborg","SE002C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",4184185
+"Malm<f6>","SE003C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1906665
+"J<f6>nk<f6>ping","SE004C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",788473
+"Ume<e5>","SE005C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",643780
+"<d6>rebro","SE008C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",700931
+"Norrk<f6>ping","SE502C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",633950
+"Helsingborg","SE503C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",761314
+"Lund","SE504C1","SE",2017,"Total nights spent in tourist accommodation establishments","CR2001V",477171
+"Stockholm","SE001C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",506375
+"G<f6>teborg","SE002C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",259922
+"Malm<f6>","SE003C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",117600
+"J<f6>nk<f6>ping","SE004C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",55233
+"Ume<e5>","SE005C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",45584
+"<d6>rebro","SE008C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",41441
+"Norrk<f6>ping","SE502C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",46090
+"Helsingborg","SE503C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",48874
+"Lund","SE504C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",33219
+"Stockholm","SE001C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",541.2
+"G<f6>teborg","SE002C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",466.9
+"Malm<f6>","SE003C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",358
+"J<f6>nk<f6>ping","SE004C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",408.2
+"Ume<e5>","SE005C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",370.9
+"<d6>rebro","SE008C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",282.6
+"Norrk<f6>ping","SE502C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",330.7
+"Helsingborg","SE503C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",347.7
+"Lund","SE504C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",280.2
+"Stockholm","SE001C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",9.7
+"G<f6>teborg","SE002C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",7.5
+"Malm<f6>","SE003C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.8
+"J<f6>nk<f6>ping","SE004C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.8
+"Ume<e5>","SE005C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.2
+"<d6>rebro","SE008C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",4.8
+"Norrk<f6>ping","SE502C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",4.5
+"Helsingborg","SE503C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.4
+"Lund","SE504C1","SE",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",4
+"Ljubljana","SI001C1","SI",2017,"Number of theatres","CR1008V",16
+"Ljubljana","SI001C1","SI",2017,"Number of public libraries (all distribution points)","CR1010V",34
+"Ljubljana","SI001C1","SI",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",3
+"Ljubljana","SI001C1","SI",2017,"Total nights spent in tourist accommodation establishments","CR2001V",1548487
+"Ljubljana","SI001C1","SI",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",10382
+"Ljubljana","SI001C1","SI",2017,"Number of available beds per 1000 residents","CR2010I",35.9
+"Ljubljana","SI001C1","SI",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",5.4
+"Bratislava","SK001C1","SK",2017,"Number of cinema seats (total capacity)","CR1003V",9418
+"Bratislava","SK001C1","SK",2017,"Number of theatres","CR1008V",38
+"Bratislava","SK001C1","SK",2017,"Number of public libraries (all distribution points)","CR1010V",16
+"Bratislava","SK001C1","SK",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",8
+"Bratislava","SK001C1","SK",2017,"Total nights spent in tourist accommodation establishments","CR2001V",2719733
+"Bratislava","SK001C1","SK",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",17153
+"Bratislava","SK001C1","SK",2017,"Number of available beds per 1000 residents","CR2010I",40.3
+"Bratislava","SK001C1","SK",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",6.4
+"Birmingham","UK002C1","UK",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",16
+"Leeds","UK003C1","UK",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",18
+"Belfast","UK012C2","UK",2017,"Total nights spent in tourist accommodation establishments","CR2001V",5030857
+"Belfast","UK012C2","UK",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",10385
+"Birmingham","UK002C1","UK",2017,"Number of available beds per 1000 residents","CR2010I",
+"Leeds","UK003C1","UK",2017,"Number of available beds per 1000 residents","CR2010I",
+"Belfast","UK012C2","UK",2017,"Number of available beds per 1000 residents","CR2010I",30.6
+"Birmingham","UK002C1","UK",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",
+"Leeds","UK003C1","UK",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",
+"Belfast","UK012C2","UK",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",14.8

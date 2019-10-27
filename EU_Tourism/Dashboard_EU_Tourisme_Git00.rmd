@@ -1,0 +1,557 @@
+---
+title: "European Destinations"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: lumen
+
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+source("Git_0000_src_cd_tour_libraries.R")
+```
+
+
+European Rankings
+===============================================================================
+
+```{r Europe_Tour_Ind, include=FALSE}
+source("Git_0010_src_cd_tour_ind.R")
+source("Git_0012_src_cd_EU_map.R")
+source("Git_0013_src_cd_City_map.R")
+source("Git_00131_src_cd_Top_City_tour_coord.R")
+source("Git_0014_src_cd_City_Weather.R")
+
+
+# Country Map Color Selection
+custom.col <- c('#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#e6f598','#abdda4','#66c2a5','#3288bd','#5e4fa2')
+
+    react_ranktb_cntr <- reactive({
+ 
+    data1tb <- cntr_tour %>% filter(Variable == input$indtb_cntr) 
+
+    data1tb
+    
+  })
+    
+    
+    react_rankbr_cntr <- reactive({
+
+    data1br <- cntr_tour %>% filter(Variable == input$indbr_cntr) 
+
+    data1br
+  })
+  
+    react_rankmap_cntr <- reactive({
+
+    data1map <- subset(cntr_gtour, Variable == input$indmap_cntr) 
+
+    data1map
+  })
+    
+    domain = reactive({
+      
+
+      if(input$indmap_cntr == "Number of available beds per 1000 residents"){
+            
+            dom = cntr_tour_BedPerRes %>% select(Value) %>% pull() %>% log()
+            
+          } else {
+            
+            if(input$indmap_cntr == "Number of bed-places in tourist accommodation establishments"){
+              
+              dom = cntr_tour_BedPlaces %>% select(Value) %>% pull() %>% log()
+              
+            } else {
+              
+              if(input$indmap_cntr == "Total nights spent in tourist accommodation establishments"){
+                
+                dom = cntr_tour_Nights %>% select(Value) %>% pull() %>% log()
+                
+              } else { dom = cntr_tour_NightsPerRes %>% select(Value) %>% pull() %>% log() }
+              
+            }
+            
+          }
+                          
+      
+      dom
+      
+      
+    })
+    
+    
+    ### Bar Chart
+    colores = reactive({
+      
+          if(input$indmap_cntr == "Number of available beds per 1000 residents"){
+            
+            fill = "#d7191c"
+            
+          } else {
+            
+            if(input$indmap_cntr == "Number of bed-places in tourist accommodation establishments"){
+              
+              fill = "#008837"
+              
+            } else {
+              
+              if(input$indmap_cntr == "Total nights spent in tourist accommodation establishments"){
+                
+                fill = "#2b83ba"
+                
+              } else { fill = "#b2abd2" }
+              
+            }
+            
+          }
+         
+      fill                
+ 
+    })
+    
+    
+    ### Map
+    couleur = reactive({
+      
+     
+          if(input$indmap_cntr == "Number of available beds per 1000 residents"){
+            
+            "Reds"
+            
+          } else {
+            
+            if(input$indmap_cntr == "Number of bed-places in tourist accommodation establishments"){
+              
+              "Greens"
+              
+            } else {
+              
+              if(input$indmap_cntr == "Total nights spent in tourist accommodation establishments"){
+                
+                "Blues"
+                
+              } else { "Purples" }
+              
+            }
+            
+          }
+                         
+ 
+    })
+    
+    react_ranktb_city <- reactive({
+
+    data2tb <- city_tour %>% filter(Variable == input$indtb_city) 
+    
+    data2tb
+    
+  })
+    
+    
+    react_rankbr_city <- reactive({
+   
+    data2br <- city_tour %>% filter(Variable == input$indbr_city) 
+    
+    data2br
+    
+  })
+    
+
+ 
+    react_rankmap_city <- reactive({
+
+    data2map <- city_top_gtour %>% filter(Variable == input$indmap_city) 
+
+    data2map
+  })
+    
+    
+    react_spec_city <- reactive({
+
+    data2spec <- city_top_gtour %>% 
+      
+      filter(Place == input$indspec_city)
+      
+    data2spec
+    
+  })
+    
+    
+  react_sum_data <- reactive({
+    # Filter the data
+    data3sum <- if(input$sum_data == "Countries"){
+      
+      cntr_tour
+      
+    } else {
+      
+      city_tour
+      
+    }
+
+    data3sum
+  })
+  
+  react_weather <- reactive({
+  
+    
+    data_weather = weather_data_1310 %>% 
+      filter(Place == input$indspec_city)
+    
+    data_weather
+    
+  })
+      
+    
+    
+```
+
+
+Column {data-width=500 .tabset}
+-----------------------------------------------------------------------
+
+### Country Rankings
+
+```{r FlexDraftEU-Tourisme05-TRIM-1}
+
+selectInput("indtb_cntr", 
+            "Select an indicator:",
+            choices = c(levels(cntr_tour$Variable))) 
+
+DT::renderDataTable({
+
+datatable(react_ranktb_cntr() %>% 
+            select(Country = Place, 
+                   Code = Country,
+                   Indicator = Variable, 
+                   Value = Value) %>% 
+            arrange(-Value),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(sSearch = "Country Filter:")))  %>% 
+  formatRound("Value", 
+              mark = ".", 
+              digits = 0)
+})
+
+```
+
+### Country Bar Charts (Top 10)
+
+```{r FlexDraftEU-Tourisme05-TRIM-2}
+selectInput("indbr_cntr", 
+            "Select an indicator:",
+            choices = c(levels(cntr_tour$Variable))) 
+
+renderPlotly({
+   
+      cntybar = ggplot(react_rankbr_cntr() %>% 
+                        arrange(-Value) %>% head(10), 
+                      aes(x = fct_reorder(Place, Value),
+                          y = Value,
+                          fill = custom.col)) + 
+        geom_col(show.legend = FALSE) +
+   
+        scale_x_discrete(name = "") +
+        scale_y_continuous(name = "Total",
+                           labels = scales::comma) +
+
+        coord_flip() +
+        theme_minimal() +
+        theme(panel.grid.major.y=element_blank())
+      
+     ggplotly(cntybar, tooltip = c("Value"))  %>% layout(showlegend = FALSE)
+})     
+```
+
+
+### Country Ranking Map
+
+```{r FlexDraftEU-Tourisme05-TRIM-3}
+
+selectInput("indmap_cntr", 
+            "Select an indicator:",
+            choices = c(levels(cntr_gtour$Variable))) # = "All", 
+# br()
+
+renderLeaflet({
+
+pal_cntr <- colorNumeric(palette = couleur(),
+                            domain = domain(), 
+                            reverse = FALSE)
+
+# Log Active Population (Continuous)
+react_rankmap_cntr() %>%
+  leaflet(options = leafletOptions(minZoom = 2, maxZoom = 7)) %>%
+
+  setView(lng = 20, lat = 51, zoom = 3) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas,
+                   options = providerTileOptions(opacity = 0.5)) %>%
+  addPolygons(weight = 1,
+              fillOpacity = 1,
+              color = ~pal_cntr(log(Value)),
+              
+              label = ~paste0(Place,": ",  
+                              " - ",
+                              prettyNum(Value , big.mark = ".")),
+              highlight = highlightOptions(weight = 2,
+                                           color = "blue",
+                                           bringToFront = TRUE)) 
+
+})
+```
+
+
+Column {data-width=500 .tabset}
+-----------------------------------------------------------------------
+
+
+### City Rankings
+
+```{r FlexDraftEU-Tourisme05-TRIM-4}
+
+
+selectInput("indtb_city", 
+            "Select an indicator:",
+            choices = c(levels(city_tour$Variable)))
+
+
+DT::renderDataTable({
+
+datatable(react_ranktb_city() %>% 
+            select(City = Place, 
+                   Code = Country,
+                   Indicator = Variable, 
+                   Value = Value) %>% 
+            arrange(-Value),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(sSearch = "City Filter:")))  %>% 
+  formatRound("Value", 
+              mark = ".", 
+              digits = 0)
+})
+```
+
+
+
+### City Bar Charts (Top 10)
+
+```{r FlexDraftEU-Tourisme05-TRIM-5}
+selectInput("indbr_city", 
+            "Select an indicator:",
+            choices = c(levels(city_tour$Variable))) 
+
+renderPlotly({
+ 
+      citybar = ggplot(react_rankbr_city() %>% 
+                        arrange(-Value) %>% head(10), 
+                      aes(x = fct_reorder(Place, Value),
+                          y = Value,
+                          fill = custom.col)) + 
+        geom_col(show.legend = FALSE) +  
+
+        scale_x_discrete(name = "") +
+        scale_y_continuous(name = "Total",
+                           labels = scales::comma) +
+
+        coord_flip() +
+        theme_minimal() +
+        theme(panel.grid.major.y=element_blank())
+      
+     ggplotly(citybar, tooltip = c("Value")) %>% layout(showlegend = FALSE)
+})   
+```
+
+
+### City Ranking Map
+
+```{r FlexDraftEU-Tourisme05-TRIM-6}
+
+selectInput("indmap_city", 
+            "Select an indicator:",
+            choices = c(levels(cntr_gtour$Variable))) 
+
+
+renderLeaflet({
+
+### Mapping Testing 
+pal <- colorFactor(custom.col, domain = levels(city_top_gtour$Country)) 
+
+
+react_rankmap_city() %>% 
+leaflet(options = leafletOptions(minZoom = 3, maxZoom = 7)) %>%
+  setView(lng = 20, lat = 51, zoom = 3) %>% 
+  addProviderTiles(providers$Esri.WorldGrayCanvas,
+                   options = providerTileOptions(opacity = 0.5)) %>% 
+
+  # addTiles() %>%
+  addCircles(lng = ~ long,
+             lat = ~ lat,
+             radius = ~ log(Value),
+             color = ~ pal(Country), 
+             labelOptions = labelOptions(interactive = TRUE, clickable = TRUE),
+             label = ~as.character(paste("City: ", 
+                                         Place, 
+                                         " - ",
+                                         "Value: ", 
+                                         prettyNum(Value, big.mark = "."))))
+
+})
+```
+
+
+
+Top Cities
+===============================================================================
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+
+### City Map
+
+```{r FlexDraftEU-Tourisme05-TRIM-7}
+
+selectInput("indspec_city", 
+            "Select a place:",
+            choices = c(levels(city_top_gtour$Place)))
+
+### Mapping Testing 
+cpal <- colorFactor("Paired", domain = levels(city_top_gtour$Country))
+
+
+
+renderLeaflet({
+
+
+clng =  city_top_gtour %>% filter(Place == input$indspec_city) %>% 
+  select("long") %>% pull() %>% .[1]
+
+
+clat = city_top_gtour %>% filter(Place == input$indspec_city) %>% 
+  select("lat") %>% pull() %>% .[1]
+
+
+zoom = 6
+
+  
+# Log Active Population (Continuous)
+city_top_gtour %>%
+  leaflet(options = leafletOptions(minZoom = 2, maxZoom = 7)) %>%
+  setView(lng = clng, lat = clat, zoom = zoom) %>% 
+  addProviderTiles(providers$Esri.NatGeoWorldMap,
+                       options = providerTileOptions(opacity = 0.5)) %>% 
+  addCircles(lng = ~ long,
+             lat = ~ lat,
+             radius = ~ Population/50,
+             color = ~ cpal(Country), 
+             popup = ~as.character(paste(sep = "<br/>",
+                                               "City: ", Place, 
+                                               "Population: ", 
+                                               prettyNum(Population, big.mark = "."))))
+
+})   
+
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### City Temperature Forecast
+
+```{r FlexDraftEU-Tourisme05-TRIM-8}
+
+renderDygraph({
+  
+wt = react_weather()
+
+### Dygraphs
+temp_xts <- xts(wt$Average_Temp, order.by=wt$Time)
+
+dygraph(temp_xts) %>%
+
+  dyOptions(stackedGraph = TRUE) %>%
+  dyRangeSelector(height = 20) %>% 
+  dySeries(label = "Temperature") %>%
+  dyAxis("y", label = "(C)") %>% 
+  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1")[1])
+  
+  
+}) 
+```
+
+
+### City Precipitation Forecast
+
+```{r FlexDraftEU-Tourisme05-TRIM-9}
+
+renderDygraph({
+  
+wt = react_weather()
+
+### Dygraphs
+rain_xts <- xts(wt$Rain, order.by=wt$Time) 
+
+dygraph(rain_xts) %>%
+
+  dyOptions(stackedGraph = TRUE) %>%
+  dyRangeSelector(height = 20) %>% 
+  dySeries(label = "Precipitation") %>%
+  dyAxis("y", label = "(mm)") %>% 
+  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1")[2])
+  
+  
+}) 
+```
+
+Summary Data
+===============================================================================
+
+
+```{r FlexDraftEU-Tourisme05-TRIM-10}
+
+
+selectInput("sum_data", 
+            "Summary data for:",
+            choices = c("Countries", "Cities")) 
+
+
+DT::renderDataTable({
+
+datatable(react_sum_data() %>% 
+
+            select(Place = Place,
+                   Country = Country,
+                   Variable = Variable,
+                   Value = Value) %>%
+            arrange(Country),
+          rownames=FALSE,
+          extensions = c("Buttons"), 
+          options = list(dom = 'Bfrtip',
+                         buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                         scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+
+                         pageLength=5,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatRound("Value", 
+              mark = ".", 
+              digits = 0)
+})
+```
+
+

@@ -1,0 +1,82 @@
+"Place","Acronym","CountryCode","Year","Variable","Indicator","Value","Country","Population","lat","long","Capital"
+"Barcelona","ES002C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",20428815,"Spain",1591485,41.4,2.17,0
+"Barcelona","ES002C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",84057,"Spain",1591485,41.4,2.17,0
+"Benalmadena","ES539C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",64.4,"Spain",47863,36.6,-4.57,0
+"Benidorm","ES054C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",1187.2,"Spain",70088,38.55,-0.14,0
+"Benidorm","ES054C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",248.4,"Spain",70088,38.55,-0.14,0
+"Benidorm","ES054C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",16603087,"Spain",70088,38.55,-0.14,0
+"Benidorm","ES054C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",79339,"Spain",70088,38.55,-0.14,0
+"Bordeaux","FR007C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",15894,"France",234086,44.84,-0.58,0
+"Brasov","RO504C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",67,"Romania",273247,45.66,25.61,0
+"Bratislava","SK001C1","SK",2017,"Number of theatres","CR1008V",38,"Slovakia",422452,48.16,17.13,1
+"Bucharest","RO001C1","RO",2017,"Number of theatres","CR1008V",43,"Romania",1883425,44.43,26.1,1
+"Bucharest","RO001C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",339,"Romania",1883425,44.43,26.1,1
+"Budapest","HU001C1","HU",2017,"Total nights spent in tourist accommodation establishments","CR2001V",10071847,"Hungary",1700019,47.51,19.08,1
+"Budapest","HU001C1","HU",2017,"Number of cinema seats (total capacity)","CR1003V",26641,"Hungary",1700019,47.51,19.08,1
+"Budapest","HU001C1","HU",2017,"Number of theatres","CR1008V",95,"Hungary",1700019,47.51,19.08,1
+"Budapest","HU001C1","HU",2017,"Number of public libraries (all distribution points)","CR1010V",278,"Hungary",1700019,47.51,19.08,1
+"Cluj-Napoca","RO002C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",99,"Romania",316129,46.78,23.59,0
+"Constanta","RO501C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",87,"Romania",300704,44.18,28.63,0
+"Craiova","RO004C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",85,"Romania",304449,44.33,23.82,0
+"Dortmund","DE010C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20,"Germany",587233,51.51,7.48,0
+"Dresden","DE009C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20,"Germany",489883,51.05,13.74,0
+"Eivissa","ES543C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",40.1,"Spain",43845,38.91,1.42,0
+"Florence","IT007C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",10056157,"Italy",374479,43.78,11.24,0
+"Fuengirola","ES060C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",42.9,"Spain",64010,36.55,-4.64,0
+"Funchal","PT004C1","PT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",52.1,"Madeira",96893,32.65,-16.9,0
+"Gothenburg","SE002C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",466.9,"Sweden",575597,57.7,11.97,0
+"Gothenburg","SE002C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",259922,"Sweden",575597,57.7,11.97,0
+"Galati","RO503C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",66,"Romania",292307,45.44,28.04,0
+"Hamburg","DE002C1","DE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",25,"Germany",1743891,53.55,10,0
+"Iasi","RO502C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",100,"Romania",316542,47.17,27.57,0
+"Jonkoping","SE004C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",408.2,"Sweden",83501,57.78,14.17,0
+"Lille","FR009C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",17744,"France",234464,50.64,3.07,0
+"Lille","FR009C1","FR",2017,"Number of theatres","CR1008V",20,"France",234464,50.64,3.07,0
+"Lille","FR009C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",23,"France",234464,50.64,3.07,0
+"Lisbon","PT001C1","PT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",12553476,"Portugal",508209,38.72,-9.14,1
+"Lisbon","PT001C1","PT",2017,"Number of cinema seats (total capacity)","CR1003V",13153,"Portugal",508209,38.72,-9.14,1
+"Lisbon","PT001C1","PT",2017,"Number of theatres","CR1008V",44,"Portugal",508209,38.72,-9.14,1
+"Lyon","FR003C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",24061,"France",475995,45.76,4.83,0
+"Lyon","FR003C2","FR",2017,"Number of theatres","CR1008V",33,"France",475995,45.76,4.83,0
+"Lyon","FR003C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",38,"France",475995,45.76,4.83,0
+"Madrid","ES001C1","ES",2017,"Total nights spent in tourist accommodation establishments","CR2001V",21144254,"Spain",3146804,40.42,-3.71,1
+"Madrid","ES001C1","ES",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",95537,"Spain",3146804,40.42,-3.71,1
+"Malmo","SE003C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",117600,"Sweden",264175,55.61,13.02,0
+"Marseille","FR203C1","FR",2017,"Number of theatres","CR1008V",19,"France",793352,43.31,5.37,0
+"Marseille","FR203C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",31,"France",793352,43.31,5.37,0
+"Massa","IT047C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",383.3,"Italy",70480,44.06,10.15,0
+"Milan","IT002C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",11852973,"Italy",1316218,45.48,9.19,0
+"Milan","IT002C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",69008,"Italy",1316218,45.48,9.19,0
+"Nantes","FR008C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",11636,"France",277979,47.23,-1.57,0
+"Nice","FR205C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",13865,"France",337891,43.7,7.27,0
+"Nice","FR205C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",23,"France",337891,43.7,7.27,0
+"Paris","FR001C1","FR",2017,"Total nights spent in tourist accommodation establishments","CR2001V",15932230,"France",2141839,48.86,2.34,1
+"Paris","FR001C1","FR",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",310782,"France",2141839,48.86,2.34,1
+"Paris","FR001C1","FR",2017,"Number of cinema seats (total capacity)","CR1003V",194761,"France",2141839,48.86,2.34,1
+"Paris","FR001C1","FR",2017,"Number of theatres","CR1008V",326,"France",2141839,48.86,2.34,1
+"Paris","FR001C1","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",319,"France",2141839,48.86,2.34,1
+"Ploiesti","RO505C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",60,"Romania",227468,44.94,26.03,0
+"Puerto de la Cruz","ES550C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",713.9,"Canary Islands",29462,28.4,-16.54,0
+"Puerto de la Cruz","ES550C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",195.7,"Canary Islands",29462,28.4,-16.54,0
+"Pula","HR006C1","HR",2017,"Number of available beds per 1000 residents","CR2010I",509.9,"Croatia",59194,44.88,13.84,0
+"Pula","HR006C1","HR",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",33.3,"Croatia",59194,44.88,13.84,0
+"Rimini","IT508C1","IT",2017,"Number of available beds per 1000 residents","CR2010I",503.9,"Italy",137582,44.06,12.57,0
+"Rimini","IT508C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",49.5,"Italy",137582,44.06,12.57,0
+"Rimini","IT508C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",75028,"Italy",137582,44.06,12.57,0
+"Roma","IT001C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",26944569,"Australia",5471,-26.57,148.78,0
+"Roma","IT001C1","IT",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",214214,"Australia",5471,-26.57,148.78,0
+"Rouen","FR215C2","FR",2017,"Number of cinema seats (total capacity)","CR1003V",11232,"France",113508,49.44,1.08,0
+"Stockholm","SE001C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",541.2,"Sweden",1260712,59.33,18.07,1
+"Stockholm","SE001C1","SE",2017,"Number of bed-places in tourist accommodation establishments","CR2009V",506375,"Sweden",1260712,59.33,18.07,1
+"Stockholm","SE001C1","SE",2017,"Number of cinema seats (total capacity)","CR1003V",11883,"Sweden",1260712,59.33,18.07,1
+"Tallinn","EE001C1","EE",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",20,"Estonia",392386,59.44,24.74,1
+"Timisoara","RO003C1","RO",2017,"Number of public libraries (all distribution points)","CR1010V",82,"Romania",313980,45.76,21.23,0
+"Torremolinos","ES068C1","ES",2017,"Number of available beds per 1000 residents","CR2010I",378.8,"Spain",56811,36.63,-4.51,0
+"Torremolinos","ES068C1","ES",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",82.4,"Spain",56811,36.63,-4.51,0
+"Toulouse","FR004C2","FR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",26,"France",439228,43.62,1.45,0
+"Umea","SE005C1","SE",2017,"Number of available beds per 1000 residents","CR2010I",370.9,"Sweden",74613,63.83,20.24,0
+"Venice","IT011C1","IT",2017,"Total nights spent in tourist accommodation establishments per resident population","CR2011I",44.6,"Italy",270277,45.43,12.33,0
+"Venice","IT011C1","IT",2017,"Total nights spent in tourist accommodation establishments","CR2001V",11685819,"Italy",270277,45.43,12.33,0
+"Vilnius","LT001C1","LT",2017,"Number of theatres","CR1008V",25,"Lithuania",542014,54.7,25.27,1
+"Zagreb","HR001C1","HR",2017,"Number of theatres","CR1008V",90,"Croatia",700717,45.8,15.97,1
+"Zagreb","HR001C1","HR",2017,"Number of public swimming pools (indoor and outdoor, excluding beaches)","CR1015V",22,"Croatia",700717,45.8,15.97,1

@@ -1,0 +1,1194 @@
+---
+title: "Nordic Demographics"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: lumen
+
+runtime: shiny
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+library(flexdashboard)
+library(shiny)
+source("Git_010_src_cd_librariesEU.R")
+```
+
+
+Europe
+===============================================================================
+
+
+```{r Europe_Data1, include = FALSE, warning=FALSE}
+source("Git_011_src_cd_gisdataEU.R")
+
+cens_11fs_r3_poptot_selEUc = cens_11fs_r3_poptot_selEUc %>% 
+  mutate_if(is.character, as.factor)
+
+source("Git_012_src_cd_densityEU.R")
+
+
+```
+
+
+Column {data-width=280 .sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+br()
+
+selectInput("country1", 
+            "Select a country:",
+            choices = c("All Countries",
+                        levels(rdensity_EUaug$CNTR_CODE)))
+
+# EU Density Data 
+  react_density <- reactive({
+
+    data1 <- rdensity_EUaug 
+    
+    if (input$country1 != "All Countries"){
+      
+      data1 <- subset(rdensity_EUaug, CNTR_CODE == input$country1) # input$country1
+      
+    }
+
+    data1
+  })
+
+br()
+
+DT::renderDataTable({
+
+datatable(react_density() %>% st_drop_geometry() %>% 
+            select(ID = id, Region = NUTS_NAME, Density = values) %>% 
+            arrange(-Density),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatRound("Density", 
+              mark = ".", 
+              digits = 0)
+})
+
+```
+
+Column {data-width=420 .tabset}
+-----------------------------------------------------------------------
+
+### Population Density Map
+
+```{r pop_map1, comment=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+nc_pal_dens <- colorNumeric(palette = "Reds",
+                       domain = log(rdensity_EUaug$values),
+                       reverse = FALSE)
+
+renderLeaflet({
+
+clng =  react_density() %>% select("clng") %>% st_drop_geometry() %>% pull() %>% unique() + 2
+lng = ifelse(input$country1 %in% "All Countries", 
+              20,
+              clng) 
+
+clat = react_density() %>% select("clat") %>% st_drop_geometry() %>% pull() %>% unique()
+lat = ifelse(input$country1 %in% "All Countries",
+              55,
+              clat) 
+
+zoom = ifelse(input$country1 %in% "All Countries",
+               3,
+               6)
+  
+# Log Active Population (Continuous)
+react_density() %>%
+  leaflet(options = leafletOptions(minZoom = 2, maxZoom = 7)) %>%
+  setView(lng = lng, lat = lat, zoom = zoom) %>% 
+  addProviderTiles(providers$Esri.WorldGrayCanvas,
+                       options = providerTileOptions(opacity = 0.5)) %>% 
+    addPolygons(weight = 1,
+              fillOpacity = 1,
+              color = ~nc_pal_dens(log(values)),
+              label = ~paste0("Population Density (/km2) ", values ),
+              highlight = highlightOptions(weight = 2,
+                                           color = "blue",
+                                           bringToFront = TRUE)) %>%
+  
+  addLegend(pal = nc_pal_dens, 
+            title = "log(Population Density) (/km2)",
+            values = ~log(rdensity_EUaug$values), 
+            opacity = 1.0,
+            labFormat = labelFormat(big.mark = "."))
+
+})
+
+```
+
+
+### Density Summary Data
+
+
+```{r}
+
+### Summary EU Density Population Table
+DT::renderDataTable({
+
+datatable(EUDensity_Sum,
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=10,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatRound("Average", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Median", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Minimum", 
+              mark = ".", 
+              digits = 0) %>% 
+ 
+  formatRound("Maximum", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Standard_Deviation", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Range", 
+              mark = ".", 
+              digits = 0)
+})
+```
+
+
+Column {data-width=300 data-height=300}
+-----------------------------------------------------------------------
+
+### Population Density Barchart (Top 10)
+
+```{r}
+renderPlotly({
+
+      geubar = ggplot(react_density() %>% st_drop_geometry() %>% 
+                        arrange(-values) %>% head(10), 
+                      aes(x = fct_reorder(id, values),
+                          y = values)) + 
+        geom_col(fill = "darkred", 
+                 show.legend = FALSE) + 
+        
+        scale_fill_gradient2(low = "white", 
+                             high = "darkred") + 
+        scale_x_discrete(name = "NUTS3 Regions") +
+        scale_y_continuous(name = "Population Density (/km2)",
+                           labels = scales::comma) +
+
+        coord_flip() +
+        theme_minimal() +
+        theme(panel.grid.major.y=element_blank())
+      
+     ggplotly(geubar, tooltip = c("id", "values"))  
+})     
+```
+
+### Density Plot
+
+```{r}
+
+#### Density Plots
+renderPlotly({
+
+gg_dens = ggplot(react_density(), 
+                 aes(log(values))) +
+  geom_density(alpha = .5, fill = "darkred", color=NA) + 
+  scale_x_continuous("log(Inhabitants per km2)") +
+
+  theme_minimal() +
+  theme(panel.grid.major.x=element_blank())
+
+  ggplotly(gg_dens)
+  
+})
+
+```
+
+
+Scandinavia
+===============================================================================
+
+```{r Scandinavia Data, include=FALSE, warning=FALSE}
+source("Git_0131_src_cd_ActivePopEU_SUM.R")
+
+# SK Labour Force Data  
+  react_actpop <- reactive({
+
+    data2 <- cens_11fs_r3_btw2065_pairsSKr 
+    
+    if (input$country2 != "All Countries"){
+      data2 <- subset(data2, id == input$country2)
+    }
+
+    data2
+  })
+
+
+```
+
+
+
+Column {data-width=300 .sidebar}
+-----------------------------------------------------------------------
+
+
+```{r}
+br()
+
+selectInput("country2", 
+            "Select a country:",
+            choices = c("All Countries", 
+                        "DK", "IS", "NO", "SE")) 
+br()
+
+DT::renderDataTable({
+
+datatable(react_actpop() %>% st_drop_geometry() %>% 
+            select(ID = geo, Region = NUTS_NAME, Labour_Force = ActivePop) %>% 
+            arrange(-Labour_Force),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatRound("Labour_Force", 
+              mark = ".", 
+              digits = 0)
+})
+
+
+```
+
+Column {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Active Population Map
+
+```{r pop_map2, comment=FALSE, message=FALSE, warning=FALSE, fig.align='center'}
+
+nc_pal_act <- colorNumeric(palette = "Blues",
+                       domain = log(cens_11fs_r3_btw2065_pairsSKr$ActivePop),
+                       reverse = FALSE)
+
+renderLeaflet({
+
+clng =  react_actpop() %>% select("clng") %>% st_drop_geometry() %>% pull() %>% unique() + 2
+lng = ifelse(input$country2 %in% "All Countries", 
+              20,
+              clng) 
+
+clat = react_actpop() %>% select("clat") %>% st_drop_geometry() %>% pull() %>% unique()
+lat = ifelse(input$country2 %in% "All Countries",
+              60,
+              clat) 
+
+zoom = ifelse(input$country2 %in% "All Countries",
+               3,
+               4)
+  
+# Log Active Population (Continuous)
+react_actpop() %>%
+  leaflet(options = leafletOptions(minZoom = 3, maxZoom = 7)) %>%
+  setView(lng = lng, lat = lat, zoom = zoom) %>% 
+  addProviderTiles(providers$Esri.WorldGrayCanvas,
+                       options = providerTileOptions(opacity = 0.5)) %>% 
+    addPolygons(weight = 1,
+              fillOpacity = 1,
+              color = ~nc_pal_act(log(ActivePop)),
+              label = ~paste0("Active Population: ",
+                              prettyNum(ActivePop , big.mark = ".")),
+              highlight = highlightOptions(weight = 2,
+                                           color = "blue",
+                                           bringToFront = TRUE)) %>%
+  
+  addLegend(pal = nc_pal_act, 
+            title = "Log(Active Population)",
+            values = ~log(ActivePop), 
+            opacity = 1.0,
+            labFormat = labelFormat(big.mark = "."))
+
+})
+
+```
+
+
+### Comparative Summary Data
+
+
+```{r}
+
+### Summary SK Active Population Table
+DT::renderDataTable({
+
+datatable(df_ActPop_tot,
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=10,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatRound("Average", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Median", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Minimum", 
+              mark = ".", 
+              digits = 0) %>% 
+ 
+  formatRound("Maximum", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Standard_Deviation", 
+              mark = ".", 
+              digits = 0) %>% 
+
+  formatRound("Range", 
+              mark = ".", 
+              digits = 0)
+})
+```
+
+
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Labour Force Bar Chart (Top 10)
+
+```{r}
+renderPlotly({
+
+      gbarsk = ggplot(react_actpop() %>% st_drop_geometry() %>% 
+                        arrange(-ActivePop) %>% head(10), 
+                      aes(x = fct_reorder(geo, ActivePop),
+                          y = ActivePop)) + 
+        geom_col(fill = "darkblue", 
+                 show.legend = FALSE) + 
+        scale_fill_gradient2(low = "white", 
+                             high = "darkblue") + 
+        scale_x_discrete(name = "NUTS3 Regions") +
+        scale_y_continuous(name = "Active Population",
+                           labels = scales::comma) +
+
+        coord_flip() +
+        theme_minimal() +
+        theme(panel.grid.major.y=element_blank())
+      
+     ggplotly(gbarsk, tooltip = c("geo", "ActivePop"))  
+})     
+```
+
+### Density Plot
+
+```{r}
+
+#### Density Plots
+renderPlotly({
+
+ggact = ggplot(react_actpop(), 
+                 aes(ActivePop)) +
+  geom_density(alpha = .5, color=NA, fill = "darkblue") + 
+  scale_x_continuous("Active Population",
+                           labels = scales::comma) +
+  scale_y_continuous("Density") + 
+  scale_fill_discrete("Country") +
+                     # labels = scales::percent_format(accuracy=.0000001))) +
+
+  theme_minimal() +
+  theme(panel.grid.major.x=element_blank())
+  ggplotly(ggact)
+  
+})
+
+```
+
+
+
+```{r adding_raw_data, include = FALSE}
+# FINLAND ALREADY FILTERED AWAY!
+cens_11fs_r3_btw2065_pairsSKr = cens_11fs_r3_btw2065_pairsSKr %>% 
+  mutate(Diff = CplPop - MarPop)
+
+cens_11fs_r3_btw2065_pairsSKr_long = cens_11fs_r3_btw2065_pairsSKr %>% 
+  select(id, geo, NUTS_NAME, clng, clat, CplPop, MarPop, Diff) %>% 
+  gather(Pair, Proportion, 
+         CplPop, 
+         MarPop,
+         Diff)
+
+cens_11fs_r3_btw2065_pairsSKr_long = cens_11fs_r3_btw2065_pairsSKr_long %>% 
+  mutate_if(is.character, as.factor)
+
+
+cens_11fs_r3_btw2065_pairsSKr_long = cens_11fs_r3_btw2065_pairsSKr_long %>% 
+  mutate(Pair = fct_recode(Pair, "Couples" = "CplPop", 
+                            "Married" = "MarPop",
+                            "Differential" = "Diff"))
+
+
+SE_couple = cens_11fs_r3_btw2065_pairsSKr_long %>% filter(id == "SE")
+NO_couple = cens_11fs_r3_btw2065_pairsSKr_long %>% filter(id == "NO")
+DK_couple = cens_11fs_r3_btw2065_pairsSKr_long %>% filter(id == "DK")
+```
+
+
+
+Sweden
+===============================================================================
+
+```{r}
+
+react_secouple <- reactive({
+
+    datase <- subset(cens_11fs_r3_btw2065_pairsSKr_long, Pair == input$secouple) 
+
+    datase
+  })
+
+
+react_summary_se <- reactive({
+
+data_sum_se = if(input$secouple == "Couples"){
+  
+  df_CP
+  
+  } else {
+    
+    if(input$secouple == "Married"){
+      
+      df_MP
+      
+    } else {
+      
+      df_Diff
+  }
+  
+  }
+
+data_sum_se
+                     
+})
+```
+
+
+
+Column {data-width=300 .sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+br()
+
+selectInput("secouple", 
+            "Select a variable:",
+            choices = c("Couples", 
+                        "Married",
+                        "Differential")) 
+br()
+
+DT::renderDataTable({
+
+datatable(react_secouple() %>% st_drop_geometry() %>% filter(id == "SE") %>% 
+            select(ID = geo, Region = NUTS_NAME, Proportion) %>% 
+            arrange(-Proportion),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(sSearch = "Filter:")))  %>% 
+formatPercentage("Proportion", digits = 1)
+})
+
+
+```
+
+Column {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Marital Status Map
+
+```{r}
+
+renderLeaflet({
+
+qpal <- colorQuantile("Greens",
+                      domain = SE_couple$Proportion,
+                      n = 5)
+  
+react_secouple() %>% filter(id == "SE") %>% 
+  leaflet() %>%
+  setView(lat = 62, lng = 15, zoom = 4) %>%
+  # addTiles() %>%
+  addPolygons(weight = 1,
+              fillOpacity = 1,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Greens",  Proportion)(Proportion),
+              label = ~paste0("Region: ", geo , "Value: ", Proportion),
+              highlight = highlightOptions(weight = 2,
+                                           color = "darkgreen",
+                                           bringToFront = TRUE)) %>% 
+  
+    addLegend(pal = qpal,
+            title = "Quantiles",
+            values = ~Proportion,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))
+
+    })
+  
+```
+
+
+### Comparative Summary Data
+
+```{r}
+
+### Sweden Couple Structure Summary
+DT::renderDataTable({
+
+datatable(react_summary_se(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=10,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatPercentage("Average", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Median", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Minimum", 
+              mark = ".", 
+              digits = 1) %>% 
+ 
+  formatPercentage("Maximum", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Standard_Deviation", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Range", 
+              mark = ".", 
+              digits = 1)
+})
+```
+
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Marital Status Bar Chart (Top 10)
+
+```{r se_bar_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+
+renderPlotly({
+
+gg_diff = ggplot(react_secouple() %>% st_drop_geometry() %>% filter(id == "SE") %>% arrange(-Proportion) %>% head(10), 
+                 
+                 aes(fct_reorder(geo,Proportion), Proportion)) +
+  
+  geom_col(fill = "darkgreen") + 
+  
+  scale_x_discrete("Swedish Regions") +
+  scale_y_continuous("Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, size = 6)) +
+  theme(axis.text.y = element_text(angle = 0, size = 8)) +
+  scale_fill_discrete("Couple Form") +
+  coord_flip() +
+  theme(legend.position = 'none')
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+### Marital Status Density - Comparison Chart 
+
+```{r se_dens_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+renderPlotly({
+
+gg_diff = ggplot(react_secouple(),  
+                 aes(Proportion, fill = id)) +
+  geom_density(alpha = .5, color=NA) +
+        
+  scale_x_discrete(name = "Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1),
+                   limits = c(.2, .6)) +
+  theme_minimal() +
+  theme(legend.position = 'top') +
+
+    scale_fill_discrete(name = NULL)
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+
+
+Norway
+===============================================================================
+
+
+```{r}
+
+  react_nocouple <- reactive({
+
+    datano <- subset(cens_11fs_r3_btw2065_pairsSKr_long, Pair == input$nocouple) 
+
+    datano
+    
+  })
+
+
+react_summary_no <- reactive({
+
+data_sum_no = if(input$nocouple == "Couples"){
+  
+  df_CP
+  
+  } else {
+    
+    if(input$nocouple == "Married"){
+      
+      df_MP
+      
+    } else {
+      
+      df_Diff
+  }
+  
+  }
+
+data_sum_no
+
+})
+```
+
+
+
+Column {data-width=300 .sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+br()
+
+selectInput("nocouple", 
+            "select a variable:",
+            choices = c("Couples", 
+                        "Married",
+                        "Differential")) 
+br()
+
+DT::renderDataTable({
+
+datatable(react_nocouple() %>% st_drop_geometry() %>% filter(id == "NO") %>% 
+            select(ID = geo, Region = NUTS_NAME, Proportion) %>% 
+            arrange(-Proportion),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(search = "Filter:")))  %>% 
+formatPercentage("Proportion", digits = 1)
+})
+
+
+```
+
+Column {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Marital Status Map
+
+```{r}
+
+
+
+renderLeaflet({
+
+qpal <- colorQuantile("Greens",
+                      domain = NO_couple$Proportion,
+                      n = 5)
+  
+react_nocouple() %>% filter(id == "NO") %>% 
+  leaflet() %>%
+  setView(lat = 65, lng = 14, zoom = 4) %>%
+  # addTiles() %>%
+  addPolygons(weight = 1,
+              fillOpacity = 1,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Greens",  Proportion)(Proportion),
+              label = ~paste0("Region: ", geo , "Value: ", Proportion),
+              highlight = highlightOptions(weight = 2,
+                                           color = "darkgreen",
+                                           bringToFront = TRUE)) %>% 
+    addLegend(pal = qpal,
+            title = "Percent",
+            values = ~Proportion,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))
+
+    })
+  
+```
+
+### Comparative Summary Data
+
+```{r}
+
+### Norway Couple Structure Summary
+DT::renderDataTable({
+
+datatable(react_summary_no(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=10,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatPercentage("Average", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Median", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Minimum", 
+              mark = ".", 
+              digits = 1) %>% 
+ 
+  formatPercentage("Maximum", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Standard_Deviation", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Range", 
+              mark = ".", 
+              digits = 1)
+})
+```
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Marital Status Bar Chart (Top 10)
+
+```{r NO_bar_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+
+renderPlotly({
+
+gg_diff = ggplot(react_nocouple() %>% st_drop_geometry() %>% filter(id == "NO") %>% 
+                        arrange(-Proportion) %>% head(10),
+                 aes(fct_reorder(geo,Proportion), Proportion)) +
+  
+  geom_col(fill = "darkgreen") +
+  
+  scale_x_discrete("Norwegian Regions") +
+  scale_y_continuous("Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, size = 6)) +
+  theme(axis.text.y = element_text(angle = 0, size = 8)) +
+  scale_fill_discrete("Couple Form") +
+  coord_flip() +
+  theme(legend.position = 'none')
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+### Marital Status Density - Comparison Chart 
+
+```{r NO_dens_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+
+renderPlotly({
+
+gg_diff = ggplot(react_nocouple(), 
+                 aes(Proportion, fill = id)) +
+  
+  geom_density(alpha = .5, color=NA) +
+              
+  scale_x_discrete(name = "Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1),
+                   limits = c(.2, .6)) +
+  theme_minimal() +
+  theme(legend.position = 'top') +
+  
+  scale_fill_discrete(name = NULL)
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+
+
+Denmark
+===============================================================================
+
+
+```{r}
+
+react_dkcouple <- reactive({
+
+    datadk <- subset(cens_11fs_r3_btw2065_pairsSKr_long, Pair == input$dkcouple) 
+
+    datadk
+  })
+
+
+react_summary_dk <- reactive({
+
+data_sum_dk = if(input$dkcouple == "Couples"){
+  
+  df_CP
+  
+  } else {
+    
+    if(input$dkcouple == "Married"){
+      
+      df_MP
+      
+    } else {
+      
+      df_Diff
+  }
+  
+  }
+
+data_sum_dk
+
+})
+
+```
+
+
+
+Column {data-width=300 .sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+br()
+
+selectInput("dkcouple", 
+            "select a variable:",
+            choices = c("Couples", 
+                        "Married",
+                        "Differential"))
+br()
+
+DT::renderDataTable({
+
+datatable(react_dkcouple() %>% st_drop_geometry() %>% filter(id == "NO") %>% 
+            select(ID = geo, Region = NUTS_NAME, Proportion) %>% 
+            arrange(-Proportion),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=5,
+                         language = list(search = "Filter:")))  %>% 
+formatPercentage("Proportion", digits = 1)
+})
+
+
+```
+
+Column {data-width=400 .tabset}
+-----------------------------------------------------------------------
+
+### Marital Status Map
+
+```{r}
+
+renderLeaflet({
+
+qpal <- colorQuantile("Greens",
+                      domain = DK_couple$Proportion,
+                      n = 5)
+  
+react_dkcouple() %>% filter(id == "DK") %>% 
+  leaflet() %>%
+  setView(lat = 56, lng = 12, zoom = 6) %>%
+  # addTiles() %>%
+  addPolygons(weight = 1,
+              fillOpacity = 1,
+              # color = ~color(),
+              fillColor = ~colorQuantile("Greens",  Proportion)(Proportion),
+              label = ~paste0("Region: ", geo , "Value: ", Proportion),
+              highlight = highlightOptions(weight = 2,
+                                           color = "darkgreen",
+                                           bringToFront = TRUE)) %>% 
+    addLegend(pal = qpal,
+            title = "Percent",
+            values = ~Proportion,
+            opacity = 1.0,
+            labFormat = labelFormat(transform = function(x) round(100*x)))
+
+    })
+  
+```
+
+
+### Comparative Summary Data
+
+```{r}
+
+### Denmark Couple Structure Summary
+DT::renderDataTable({
+
+datatable(react_summary_dk(),
+          rownames=FALSE,
+          extensions = c("FixedColumns"),
+          options = list(scrollX = TRUE, 
+                         fixedColumns = list(leftColumns = 1),
+                         pageLength=10,
+                         language = list(sSearch = "Filter:")))  %>% 
+  formatPercentage("Average", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Median", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Minimum", 
+              mark = ".", 
+              digits = 1) %>% 
+ 
+  formatPercentage("Maximum", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Standard_Deviation", 
+              mark = ".", 
+              digits = 1) %>% 
+
+  formatPercentage("Range", 
+              mark = ".", 
+              digits = 1)
+})
+```
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Marital Status Bar Chart (Top 10)
+
+```{r DK_bar_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+
+renderPlotly({
+
+gg_diff = ggplot(react_dkcouple() %>% st_drop_geometry() %>% filter(id == "DK") %>% 
+                        arrange(-Proportion), 
+                 aes(fct_reorder(geo,Proportion), Proportion)) +
+  
+  geom_col(fill = "darkgreen") + 
+  
+  scale_x_discrete("Danish Regions") +
+  scale_y_continuous("Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1)) +
+  theme_minimal() +
+
+  theme(axis.text.x = element_text(angle = 0, size = 6)) +
+  theme(axis.text.y = element_text(angle = 0, size = 8)) +
+  scale_fill_discrete("Couple Form") +
+  coord_flip() +
+  theme(legend.position = 'none')
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+### Marital Status Density - Comparison Chart 
+
+```{r DK_dens_chart, fig.align='center',  fig.height=6,  message=FALSE, warning=FALSE, comment=FALSE}
+
+renderPlotly({
+
+gg_diff = ggplot(react_dkcouple(), 
+                 aes(Proportion, fill = id)) +
+  
+  geom_density(alpha = .5, color=NA) +
+  
+  scale_x_discrete(name = "Percent of Active Population",
+                     labels = scales::percent_format(accuracy = 1),
+                   limits = c(.2, .6)) +
+  theme_minimal() +
+  theme(legend.position = 'top') +
+
+  scale_fill_discrete(name = NULL)
+
+
+ggplotly(gg_diff, tooltip = c("Couple_Form", "Proportion"))
+
+})
+
+```
+
+
+
+Eurostat Data
+===============================================================================
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Population Data
+
+```{r}
+
+ react_totpop <- reactive({
+
+    data3 <- cens_11fs_r3_btw2065_pairsSKr 
+    
+    if (input$country3 != "All Countries"){
+      data3 <- subset(data3, id == input$country3)
+    }
+
+    data3
+  })
+
+
+selectInput("country3", 
+            "Select a country:",
+            choices = c("All Countries", 
+                        "DK", "IS", "NO", "SE")) 
+br()
+
+DT::renderDataTable({
+
+datatable(react_totpop() %>% st_drop_geometry() %>% 
+            select(Region_ID = geo, Region = NUTS_NAME, Labour_Force = ActivePop) %>% 
+            arrange(-Labour_Force),
+          rownames=FALSE,
+          extensions = c("Buttons"), # ,"FixedColumns"),
+          options = list(dom = 'Bfrtip',
+                         buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+
+                         pageLength=5,
+                         language = list(sSearch = "Filter:"))) %>% 
+
+  formatRound("Labour_Force", 
+              mark = ".", 
+              digits = 0)
+})
+
+
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Marital Status Data
+
+```{r}
+
+dt_cens_11fs_r3_btw2065_pairsSKr_long = cens_11fs_r3_btw2065_pairsSKr_long %>% 
+  st_drop_geometry() %>% 
+  select(1:3, 6,7)
+
+dt_cens_11fs_r3_btw2065_pairsSKr_wide = dt_cens_11fs_r3_btw2065_pairsSKr_long %>% 
+  spread(Pair, Proportion) %>% filter(id != "FI")
+
+dt_cens_11fs_r3_btw2065_pairsSKr_wide = dt_cens_11fs_r3_btw2065_pairsSKr_wide %>% 
+  select(1:4,6,5) %>% 
+  rename(Country = id,
+         Region_ID = geo,
+         Region = NUTS_NAME) %>% 
+  mutate_if(is.character, as.factor)
+
+selectInput("country4", 
+            "Select a country:",
+            choices = c("All Countries", 
+                        "DK", "IS", "NO", "SE")) 
+
+
+ react_totcpl <- reactive({
+
+    data4 <- dt_cens_11fs_r3_btw2065_pairsSKr_wide 
+    
+    if (input$country4 != "All Countries"){
+      data4 <- subset(data4, Country == input$country4)
+    }
+
+    data4
+  })
+
+
+
+br()
+
+DT::renderDataTable({
+
+datatable(react_totcpl() %>% select(-1),
+          rownames=FALSE,
+          extensions = c("Buttons"),
+          options = list(dom = 'Bfrtip',
+                         buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                         pageLength=5,
+                         language = list(sSearch = "Filter:"))) %>% 
+
+formatPercentage("Couples", digits = 1) %>% 
+    formatPercentage("Married", digits = 1) %>% 
+    formatPercentage("Differential", digits = 1)
+})
+
+
+```
+
+
